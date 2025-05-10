@@ -1,4 +1,4 @@
-package com.nopecommerce.users;
+package com.nopcommerce;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-public class Leve_01_Register_DRY {
+public class Level_01_Register_DRY {
     WebDriver driver;
     String emailAddress;
 
