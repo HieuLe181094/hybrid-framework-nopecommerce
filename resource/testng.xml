@@ -1,9 +1,10 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
 <suite name="Nopecommerce UI Automation" verbose="1" >
-    <test name="Run on Chrome" >
+    <test name="Run on Edge" >
         <classes>
-            <class name="com.nopecommerce.users.Leve_01_Register_DRY" />
+            <class name="com.nopecommerce.users.Leve_03_PageObject"></class>
         </classes>
     </test>
+</suite>
 
