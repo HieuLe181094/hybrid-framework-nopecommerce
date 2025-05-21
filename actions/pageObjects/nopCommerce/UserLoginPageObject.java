@@ -4,10 +4,10 @@ import commons.BasePage;
 import org.openqa.selenium.WebDriver;
 import pageUIs.nopCommerce.LoginPageUI;
 
-public class LoginPageObject extends BasePage {
+public class UserLoginPageObject extends BasePage {
     private WebDriver driver;
 
-    public LoginPageObject(WebDriver driver) {
+    public UserLoginPageObject(WebDriver driver) {
         this.driver = driver;
     }
 
@@ -28,9 +28,9 @@ public class LoginPageObject extends BasePage {
         sendkeyToElement(driver,LoginPageUI.PASSWORD_TEXTBOX,password);
     }
 
-    public HomePageObject clickToLoginButton() {
+    public UserHomePageObject clickToLoginButton() {
         waitForElementClickable(driver,LoginPageUI.LOGIN_BUTTON);
         clickToElement(driver,LoginPageUI.LOGIN_BUTTON);
-        return PageGenerator.getPageInstance(HomePageObject.class,driver);
+        return PageGenerator.getPageInstance(UserHomePageObject.class,driver);
     }
 }
