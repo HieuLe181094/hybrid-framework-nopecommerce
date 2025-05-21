@@ -6,10 +6,10 @@ import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pageObjects.nopCommerce.*;
+import pageObjects.nopCommerce.sideBar.UserCustomerInforPageObject;
+import pageUIs.nopCommerce.*;
 
-import javax.swing.*;
-import java.awt.image.VolatileImage;
-import java.security.Key;
 import java.time.Duration;
 import java.util.List;
 import java.util.Set;
@@ -371,8 +371,24 @@ public class BasePage {
         return new WebDriverWait(driver, Duration.ofSeconds(LONG_TIMEOUT)).until(ExpectedConditions.elementToBeSelected(getByXpath(locator)));
     }
 
+    public UserCustomerInforPageObject clickToMyAccountLink(WebDriver driver) {
+        waitForElementClickable(driver, HomePageUI.MY_ACCOUNT_LINK);
+        clickToElement(driver, HomePageUI.MY_ACCOUNT_LINK);
+        return PageGenerator.getPageInstance(UserCustomerInforPageObject.class,driver);
+    }
+
+    public UserHomePageObject clickToLogoutLink(WebDriver driver) {
+        waitForElementClickable(driver,RegisterPageUI.LOGOUT_LINK);
+        clickToElement(driver,RegisterPageUI.LOGOUT_LINK);
+        return PageGenerator.getPageInstance(UserHomePageObject.class,driver);
+    }
+
     private long LONG_TIMEOUT = 30;
 
+    public AdminLoginPageObject openAdminSite(WebDriver driver, String adminUrl) {
+        openPageUrl(driver, adminUrl);
+        return  PageGenerator.getPageInstance(AdminLoginPageObject.class, driver);
+    }
 }
 
 
