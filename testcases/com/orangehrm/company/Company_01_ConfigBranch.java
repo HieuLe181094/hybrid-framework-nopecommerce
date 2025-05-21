@@ -17,7 +17,7 @@ public class Company_01_ConfigBranch extends BaseTest {
     @Parameters({"url", "browser"})
     @BeforeClass
     public void beforeClass(String urlValue, String browserName) {
-        driver = getBrowserDriver(urlValue,browserName);
+        getBrowserDriver(urlValue,browserName);
     }
 
     @Test
