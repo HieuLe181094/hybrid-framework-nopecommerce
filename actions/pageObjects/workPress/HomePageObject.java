@@ -1,4 +1,4 @@
-package pageObjects;
+package pageObjects.workPress;
 
 public class HomePageObject {
 }
