@@ -8,6 +8,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import pageObjects.nopCommerce.*;
+import pageObjects.nopCommerce.sideBar.UserCustomerInforPageObject;
 
 public class Level_04_FactoryPattern extends BaseTest {
     @Parameters({"url", "browser"})
@@ -21,14 +22,14 @@ public class Level_04_FactoryPattern extends BaseTest {
         companyName ="Twiyo";
         password = "gK3@*09`%NO";
 
-        homePage = (HomePageObject) PageManagement.getPage(driver,"HomePage");
+        homePage = (UserHomePageObject) PageManagement.getPage(driver,"HomePage");
 
     }
 
     @Test
     public void TC_01_Register() {
         homePage.clickToRegisterLink();
-        registerPage = (RegisterPageObject) PageManagement.getPage(driver,"RegisterPage");
+        registerPage = (UserRegisterPageObject) PageManagement.getPage(driver,"RegisterPage");
 
         registerPage.enterToFirstNameTextbox(firstName);
         registerPage.enterToLastNameTextbox(lastName);
@@ -40,11 +41,11 @@ public class Level_04_FactoryPattern extends BaseTest {
 
         Assert.assertEquals(registerPage.getRegisterSuccessMessage(),"Your registration completed");
 
-        registerPage.clickToLogoutLink();
+        registerPage.clickToLogoutLink(driver);
 
         // Về lại trang Home: từ page A qua page B
         // RegisterPage qua HomePage
-        homePage = (HomePageObject) PageManagement.getPage(driver,"HomePage");
+        homePage = (UserHomePageObject) PageManagement.getPage(driver,"HomePage");
     }
 
     @Test
@@ -53,7 +54,7 @@ public class Level_04_FactoryPattern extends BaseTest {
 
         // Từ page A qua page B
         // Từ Home qua Login
-        loginPage = (LoginPageObject) PageManagement.getPage(driver,"LoginPage");
+        loginPage = (UserLoginPageObject) PageManagement.getPage(driver,"LoginPage");
 
         loginPage.enterToEmailTextbox(emailAddress);
         loginPage.enterToPasswordTextbox(password);
@@ -64,16 +65,16 @@ public class Level_04_FactoryPattern extends BaseTest {
 
         // Từ page A qua lại page B
         // Tù Login về Home
-        homePage = (HomePageObject) PageManagement.getPage(driver,"HomePage");
+        homePage = (UserHomePageObject) PageManagement.getPage(driver,"HomePage");
     }
 
     @Test
     public void TC_03_MyAccount() {
-        homePage.clickToMyAccountLink();
+        homePage.clickToMyAccountLink(driver);
 
         // Từ page A qua page B
         // Từ Login về CustomerInfo
-        customerPage = (CustomerInforPageObject) PageManagement.getPage(driver,"CustomerInfoPage");
+        customerPage = (UserCustomerInforPageObject) PageManagement.getPage(driver,"CustomerInfoPage");
 
         Assert.assertEquals(customerPage.getFirstNameTextboxValue(),firstName);
         Assert.assertEquals(customerPage.getLastNameTextboxValue(),lastName);
@@ -88,10 +89,10 @@ public class Level_04_FactoryPattern extends BaseTest {
     }
 
     WebDriver driver;
-    HomePageObject homePage;
-    LoginPageObject loginPage;
-    RegisterPageObject registerPage;
-    CustomerInforPageObject customerPage;
+    UserHomePageObject homePage;
+    UserLoginPageObject loginPage;
+    UserRegisterPageObject registerPage;
+    UserCustomerInforPageObject customerPage;
     String firstName, lastName, emailAddress, companyName, password;
 
 }

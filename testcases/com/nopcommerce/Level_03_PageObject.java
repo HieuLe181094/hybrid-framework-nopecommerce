@@ -2,24 +2,22 @@ package com.nopcommerce;
 
 import commons.BaseTest;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.edge.EdgeDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import pageObjects.nopCommerce.CustomerInforPageObject;
-import pageObjects.nopCommerce.HomePageObject;
-import pageObjects.nopCommerce.LoginPageObject;
-import pageObjects.nopCommerce.RegisterPageObject;
-
-import java.util.concurrent.TimeUnit;
+import pageObjects.nopCommerce.sideBar.UserCustomerInforPageObject;
+import pageObjects.nopCommerce.UserHomePageObject;
+import pageObjects.nopCommerce.UserLoginPageObject;
+import pageObjects.nopCommerce.UserRegisterPageObject;
 
 public class Level_03_PageObject extends BaseTest {
-    @Parameters({"url","browser"})
+    @Parameters({"urlUser","browser"})
     @BeforeClass
-    public void beforeClass(String urlValue, String browserName) {
-        driver = getBrowserDriver(urlValue,browserName);
+    public void beforeClass(String url, String browserName) {
+        this.userUrl = userUrl;
+        driver = getBrowserDriver(this.userUrl,browserName);
 
         firstName = "Marley";
         lastName = "Grollmann";
@@ -27,14 +25,14 @@ public class Level_03_PageObject extends BaseTest {
         companyName ="Twiyo";
         password = "gK3@*09`%NO";
 
-        homePage = new HomePageObject(driver);
+        homePage = new UserHomePageObject(driver);
 
     }
 
     @Test
     public void TC_01_Register() {
         homePage.clickToRegisterLink();
-        registerPage = new RegisterPageObject(driver);
+        registerPage = new UserRegisterPageObject(driver);
 
         registerPage.enterToFirstNameTextbox(firstName);
         registerPage.enterToLastNameTextbox(lastName);
@@ -46,11 +44,11 @@ public class Level_03_PageObject extends BaseTest {
 
         Assert.assertEquals(registerPage.getRegisterSuccessMessage(),"Your registration completed");
 
-        registerPage.clickToLogoutLink();
+        registerPage.clickToLogoutLink(driver);
 
         // Về lại trang Home: từ page A qua page B
         // RegisterPage qua HomePage
-        homePage = new HomePageObject(driver);
+        homePage = new UserHomePageObject(driver);
     }
 
     @Test
@@ -59,7 +57,7 @@ public class Level_03_PageObject extends BaseTest {
 
         // Từ page A qua page B
         // Từ Home qua Login
-        loginPage = new LoginPageObject(driver);
+        loginPage = new UserLoginPageObject(driver);
 
         loginPage.enterToEmailTextbox(emailAddress);
         loginPage.enterToPasswordTextbox(password);
@@ -70,16 +68,16 @@ public class Level_03_PageObject extends BaseTest {
 
         // Từ page A qua lại page B
         // Tù Login về Home
-        homePage = new HomePageObject(driver);
+        homePage = new UserHomePageObject(driver);
     }
 
     @Test
     public void TC_03_MyAccount() {
-        homePage.clickToMyAccountLink();
+        homePage.clickToMyAccountLink(driver);
 
         // Từ page A qua page B
         // Từ Login về CustomerInfo
-        customerPage = new CustomerInforPageObject(driver);
+        customerPage = new UserCustomerInforPageObject(driver);
 
         Assert.assertEquals(customerPage.getFirstNameTextboxValue(),firstName);
         Assert.assertEquals(customerPage.getLastNameTextboxValue(),lastName);
@@ -94,10 +92,11 @@ public class Level_03_PageObject extends BaseTest {
     }
 
     WebDriver driver;
-    HomePageObject homePage;
-    LoginPageObject loginPage;
-    RegisterPageObject registerPage;
-    CustomerInforPageObject customerPage;
+    UserHomePageObject homePage;
+    UserLoginPageObject loginPage;
+    UserRegisterPageObject registerPage;
+    UserCustomerInforPageObject customerPage;
     String firstName, lastName, emailAddress, companyName, password;
+    String userUrl, adminUrl;
 
 }

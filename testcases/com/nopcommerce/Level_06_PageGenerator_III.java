@@ -8,6 +8,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import pageObjects.nopCommerce.*;
+import pageObjects.nopCommerce.sideBar.UserCustomerInforPageObject;
 
 public class Level_06_PageGenerator_III extends BaseTest {
     @Parameters({"url","browser"})
@@ -40,7 +41,7 @@ public class Level_06_PageGenerator_III extends BaseTest {
 
         Assert.assertEquals(registerPage.getRegisterSuccessMessage(),"Your registration completed");
 
-        registerPage.clickToLogoutLink();
+        registerPage.clickToLogoutLink(driver);
 
         // Về lại trang Home: từ page A qua page B
         // RegisterPage qua HomePage
@@ -69,7 +70,7 @@ public class Level_06_PageGenerator_III extends BaseTest {
 
     @Test
     public void TC_03_MyAccount() {
-        homePage.clickToMyAccountLink();
+        homePage.clickToMyAccountLink(driver);
 
         // Từ page A qua page B
         // Từ Login về CustomerInfo
@@ -88,10 +89,10 @@ public class Level_06_PageGenerator_III extends BaseTest {
     }
 
     WebDriver driver;
-    HomePageObject homePage;
-    LoginPageObject loginPage;
-    RegisterPageObject registerPage;
-    CustomerInforPageObject customerPage;
+    UserHomePageObject homePage;
+    UserLoginPageObject loginPage;
+    UserRegisterPageObject registerPage;
+    UserCustomerInforPageObject customerPage;
     String firstName, lastName, emailAddress, companyName, password;
 
 }

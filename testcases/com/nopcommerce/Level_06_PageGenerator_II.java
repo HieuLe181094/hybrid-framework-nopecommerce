@@ -7,10 +7,10 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import pageObjects.nopCommerce.CustomerInforPageObject;
-import pageObjects.nopCommerce.HomePageObject;
-import pageObjects.nopCommerce.LoginPageObject;
-import pageObjects.nopCommerce.RegisterPageObject;
+import pageObjects.nopCommerce.sideBar.UserCustomerInforPageObject;
+import pageObjects.nopCommerce.UserHomePageObject;
+import pageObjects.nopCommerce.UserLoginPageObject;
+import pageObjects.nopCommerce.UserRegisterPageObject;
 
 public class Level_06_PageGenerator_II extends BaseTest {
     @Parameters({"url","browser"})
@@ -26,7 +26,7 @@ public class Level_06_PageGenerator_II extends BaseTest {
         password = "gK3@*09`%NO";
 
         // Khởi tạo ra 1 instance của class HomePageObject
-        homePage = new HomePageObject(driver);
+        homePage = new UserHomePageObject(driver);
 
     }
 
@@ -43,7 +43,7 @@ public class Level_06_PageGenerator_II extends BaseTest {
 
         Assert.assertEquals(registerPage.getRegisterSuccessMessage(),"Your registration completed");
 
-        homePage = registerPage.clickToLogoutLink();
+        homePage = registerPage.clickToLogoutLink(driver);
 
     }
 
@@ -60,7 +60,7 @@ public class Level_06_PageGenerator_II extends BaseTest {
 
     @Test
     public void TC_03_MyAccount() {
-        customerPage = homePage.clickToMyAccountLink();
+        customerPage = homePage.clickToMyAccountLink(driver);
 
         Assert.assertEquals(customerPage.getFirstNameTextboxValue(),firstName);
         Assert.assertEquals(customerPage.getLastNameTextboxValue(),lastName);
@@ -75,10 +75,10 @@ public class Level_06_PageGenerator_II extends BaseTest {
     }
 
     WebDriver driver;
-    HomePageObject homePage;
-    LoginPageObject loginPage;
-    RegisterPageObject registerPage;
-    CustomerInforPageObject customerPage;
+    UserHomePageObject homePage;
+    UserLoginPageObject loginPage;
+    UserRegisterPageObject registerPage;
+    UserCustomerInforPageObject customerPage;
     String firstName, lastName, emailAddress, companyName, password;
 
 }
