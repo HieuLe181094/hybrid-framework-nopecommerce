@@ -3,12 +3,10 @@ package pageObjects.nopCommerce;
 import commons.BasePage;
 import org.openqa.selenium.WebDriver;
 
-public class AdminDashboardPageObject extends BasePage {
+public class AdminProductPageObject extends BasePage {
     WebDriver driver;
 
-    public AdminDashboardPageObject(WebDriver driver) {
+    public AdminProductPageObject(WebDriver driver) {
         this.driver = driver;
     }
-
-
 }
