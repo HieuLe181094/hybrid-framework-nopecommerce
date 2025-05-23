@@ -56,7 +56,7 @@ public class Level_08_PageNavigation extends BaseTest {
 
         Assert.assertEquals(registerPage.getRegisterSuccessMessage(),"Your registration completed");
 
-        registerPage.clickToLogoutLink(driver);
+        registerPage.clickToLogoutLinkAtUserSite(driver);
 
         // Về lại trang Home: từ page A qua page B
         // RegisterPage qua HomePage
@@ -85,7 +85,7 @@ public class Level_08_PageNavigation extends BaseTest {
 
     @Test
     public void TC_03_MyAccount() {
-        homePage.clickToMyAccountLink(driver);
+        homePage.clickToMyAccountLinkAtUserSite(driver);
 
         // Từ page A qua page B
         // Từ Login về CustomerInfo

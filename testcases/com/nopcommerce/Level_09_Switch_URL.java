@@ -40,33 +40,55 @@ public class Level_09_Switch_URL extends BaseTest {
 
         Assert.assertEquals(userRegisterPage.getRegisterSuccessMessage(),"Your registration completed");
 
-        userCustomerPage = userHomePage.clickToMyAccountLink(driver);
+        userCustomerPage = userHomePage.clickToMyAccountLinkAtUserSite(driver);
+
+        // Logout
+        userHomePage = userCustomerPage.clickToLogoutLinkAtUserSite(driver);
     }
 
-    @Test
-    public void TC_01_Order() {
-        // Desktop Page
-
-        // Order 1 product  - Order ID (status is Pending)
-        // ...
-
-        // Get Order ID
-
-        userHomePage = userCustomerPage.clickToLogoutLink(driver);
-
+    @Test(description = "Login")
+    public void TC_01_Required_Order() {
+        // User site => Admin site
         adminLoginPage = userHomePage.openAdminSite(driver, adminUrl);
 
-//        adminLoginPage.enterToEmailTextbox("admin@yourstore.com");
-//        adminLoginPage.enterToPasswordTextbox("admin");
-//        adminDashboardPage = adminLoginPage.clickLoginButton();
+        adminLoginPage.enterToEmailTextbox("hiuhiu@gmail.com");
+        adminLoginPage.enterToPasswordTextbox("hiuhiu@gmail.com");
+        adminDashboardPage = adminLoginPage.clickLoginButton();
+        Assert.assertTrue(adminDashboardPage.isPageLoadedSuccess(driver));
 
-        // Open Sale Page
+        // Logout
+        adminDashboardPage.clickToLogoutAtAdminSite(driver);
 
-        // Open Order Page
+        // Admin site => User site
+        adminLoginPage.openUserSite(driver,userUrl);
+    }
 
-        // Change Order status Complete/ Paid
+    @Test(description = "Dont Login")
+    public void TC_02_Dont_Required_Login(){
+        userLoginPage = userHomePage.clickToLoginLink();
 
-        // Switch to User site - Check Order status
+        userLoginPage.enterToEmailTextbox(emailAddress);
+        userLoginPage.enterToPasswordTextbox(password);
+        userHomePage = userLoginPage.clickToLoginButton();
+
+        userCustomerPage = userHomePage.clickToMyAccountLinkAtUserSite(driver);
+
+        // User site => Admin site
+        adminLoginPage = userCustomerPage.openAdminSite(driver,adminUrl);
+
+        adminLoginPage.enterToEmailTextbox("hiuhiu@gmail.com");
+        adminLoginPage.enterToPasswordTextbox("hiuhiu@gmail.com");
+        adminLoginPage.clickLoginButton();
+        Assert.assertTrue(adminDashboardPage.isPageLoadedSuccess(driver));
+
+        adminProductPage = adminDashboardPage.openAdminProductPage(driver);
+
+        //Admin site => User site
+        userHomePage = adminProductPage.openUserSite(driver,userUrl);
+
+        // Nếu Admin site đã login rồi thì sẽ vào Dashboard
+        userHomePage.openAdminSite(driver,adminUrl);
+        adminDashboardPage = PageGenerator.getPageInstance(AdminDashboardPageObject.class,driver);
     }
 
 
@@ -84,6 +106,7 @@ public class Level_09_Switch_URL extends BaseTest {
     UserCustomerInforPageObject userCustomerPage;
     AdminLoginPageObject adminLoginPage;
     AdminDashboardPageObject adminDashboardPage;
+    AdminProductPageObject adminProductPage;
     String firstName, lastName, emailAddress, companyName, password;
     String userUrl, adminUrl;
 

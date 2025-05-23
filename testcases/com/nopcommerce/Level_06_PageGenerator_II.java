@@ -43,7 +43,7 @@ public class Level_06_PageGenerator_II extends BaseTest {
 
         Assert.assertEquals(registerPage.getRegisterSuccessMessage(),"Your registration completed");
 
-        homePage = registerPage.clickToLogoutLink(driver);
+        homePage = registerPage.clickToLogoutLinkAtUserSite(driver);
 
     }
 
@@ -60,7 +60,7 @@ public class Level_06_PageGenerator_II extends BaseTest {
 
     @Test
     public void TC_03_MyAccount() {
-        customerPage = homePage.clickToMyAccountLink(driver);
+        customerPage = homePage.clickToMyAccountLinkAtUserSite(driver);
 
         Assert.assertEquals(customerPage.getFirstNameTextboxValue(),firstName);
         Assert.assertEquals(customerPage.getLastNameTextboxValue(),lastName);
