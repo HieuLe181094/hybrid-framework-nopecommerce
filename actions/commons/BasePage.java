@@ -3,6 +3,7 @@ package commons;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.Color;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -12,6 +13,7 @@ import pageUIs.nopCommerce.*;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 public class BasePage {
@@ -22,6 +24,8 @@ public class BasePage {
     }
 
     private WebDriver driver;
+
+    private long LONG_TIMEOUT = 30;
 
     // Chứa các common (resuable) function cho các class bên Page Object
     // 1 - Access Modifier: public/ protected/ private/ default
@@ -371,23 +375,68 @@ public class BasePage {
         return new WebDriverWait(driver, Duration.ofSeconds(LONG_TIMEOUT)).until(ExpectedConditions.elementToBeSelected(getByXpath(locator)));
     }
 
-    public UserCustomerInforPageObject clickToMyAccountLink(WebDriver driver) {
-        waitForElementClickable(driver, HomePageUI.MY_ACCOUNT_LINK);
-        clickToElement(driver, HomePageUI.MY_ACCOUNT_LINK);
+    public UserCustomerInforPageObject clickToMyAccountLinkAtUserSite(WebDriver driver) {
+        waitForElementClickable(driver, BasePageUI.USER_MY_ACCOUNT_LINK);
+        clickToElement(driver, BasePageUI.USER_MY_ACCOUNT_LINK);
         return PageGenerator.getPageInstance(UserCustomerInforPageObject.class,driver);
     }
 
-    public UserHomePageObject clickToLogoutLink(WebDriver driver) {
-        waitForElementClickable(driver,RegisterPageUI.LOGOUT_LINK);
-        clickToElement(driver,RegisterPageUI.LOGOUT_LINK);
+    public UserHomePageObject clickToLogoutLinkAtUserSite(WebDriver driver) {
+        waitForElementClickable(driver, BasePageUI.USER_LOGOUT_LINK);
+        clickToElement(driver, BasePageUI.USER_LOGOUT_LINK);
         return PageGenerator.getPageInstance(UserHomePageObject.class,driver);
     }
 
-    private long LONG_TIMEOUT = 30;
 
     public AdminLoginPageObject openAdminSite(WebDriver driver, String adminUrl) {
         openPageUrl(driver, adminUrl);
         return  PageGenerator.getPageInstance(AdminLoginPageObject.class, driver);
+    }
+
+    public boolean isPageLoadedSuccess(WebDriver driver) {
+        WebDriverWait explicitWait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
+        ExpectedCondition<Boolean> jQueryLoad = new ExpectedCondition<Boolean>() {
+            @Override
+            public Boolean apply(WebDriver driver) {
+                return (Boolean) jsExecutor.executeScript("return (window.jQuery != null) && (jQuery.active === 0);");
+            }
+        };
+
+        ExpectedCondition<Boolean> jsLoad = new ExpectedCondition<Boolean>() {
+            @Override
+            public Boolean apply(WebDriver driver) {
+                return jsExecutor.executeScript("return document.readyState").toString().equals("complete");
+            }
+        };
+        return explicitWait.until(jQueryLoad) && explicitWait.until(jsLoad);
+}
+
+    public AdminLoginPageObject clickToLogoutAtAdminSite(WebDriver driver) {
+        waitForElementClickable(driver, BasePageUI.ADMIN_LOGOUT_LINK);
+        clickToElement(driver,BasePageUI.ADMIN_LOGOUT_LINK);
+        return PageGenerator.getPageInstance(AdminLoginPageObject.class,driver);
+    }
+
+    public UserHomePageObject openUserSite(WebDriver driver, String userUrl) {
+        openPageUrl(driver, userUrl);
+        return PageGenerator.getPageInstance(UserHomePageObject.class,driver);
+    }
+
+    public AdminProductPageObject openAdminProductPage(WebDriver driver) {
+        String attributeValue = getElementAttribute(driver, BasePageUI.ADMIN_PRODUCT_MENU, "class");
+
+        // Menu: Expand/ Collapse
+        if (!attributeValue.endsWith("menu-is-opening menu-open")){
+            waitForElementClickable(driver, BasePageUI.ADMIN_PRODUCT_MENU);
+            clickToElement(driver, BasePageUI.ADMIN_PRODUCT_MENU);
+        }
+
+        // Sub-Menu
+        waitForElementClickable(driver, BasePageUI.ADMIN_PRODUCT_SUBMENU);
+        clickToElement(driver, BasePageUI.ADMIN_PRODUCT_SUBMENU);
+
+        return PageGenerator.getPageInstance(AdminProductPageObject.class,driver);
     }
 }
 
