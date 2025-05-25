@@ -17,6 +17,7 @@ public class BaseTest {
         return rand.nextInt(9999);
     }
 
+    // Dev Environment
     protected WebDriver getBrowserDriver(String url, String browserName){
         BrowserType browserType = BrowserType.valueOf(browserName.toUpperCase());
 
@@ -39,7 +40,7 @@ public class BaseTest {
 
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         driver.manage().window().maximize();
-        driver.get(url);
+        driver.get(GlobalConstants.DEV_URL);
         return driver;
     }
 

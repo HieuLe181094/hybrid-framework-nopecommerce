@@ -1,6 +1,7 @@
 package com.nopcommerce;
 
 import commons.BaseTest;
+import commons.GlobalConstants;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -51,8 +52,8 @@ public class Level_10_By_Locator extends BaseTest {
         // User site => Admin site
         adminLoginPage = userHomePage.openAdminSite(driver, adminUrl);
 
-        adminLoginPage.enterToEmailTextbox("hiuhiu@gmail.com");
-        adminLoginPage.enterToPasswordTextbox("hiuhiu@gmail.com");
+        adminLoginPage.enterToEmailTextbox(GlobalConstants.ADMIN_USERNAME);
+        adminLoginPage.enterToPasswordTextbox(GlobalConstants.ADMIN_PASSWORD);
         adminDashboardPage = adminLoginPage.clickLoginButton();
         Assert.assertTrue(adminDashboardPage.isPageLoadedSuccess(driver));
 

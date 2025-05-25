@@ -13,6 +13,31 @@ public class SideBarPageObject extends BasePage {
         this.driver = driver;
     }
 
+    // Option 1
+    public Object openSideBarByPageName(String pageName){
+        waitForElementClickable(driver, SideBarPageUI.DYNAMIC_SIDEBAR_LINK_BY_NAME, pageName);
+        clickToElement(driver, SideBarPageUI.DYNAMIC_SIDEBAR_LINK_BY_NAME, pageName);
+
+        switch (pageName) {
+            case "Addresses":
+                return PageGenerator.getPageInstance(AddressPageObject.class, driver);
+            case "Reward points":
+                return PageGenerator.getPageInstance(RewardPointPageObject.class, driver);
+            case "Customer info":
+                return PageGenerator.getPageInstance(UserCustomerInforPageObject.class, driver);
+            case "Orders":
+                return PageGenerator.getPageInstance(OrderPageObject.class, driver);
+            default:
+                return null;
+        }
+    }
+
+    // Option 2
+    public void openSideBar(String pageName){
+        waitForElementClickable(driver, SideBarPageUI.DYNAMIC_SIDEBAR_LINK_BY_NAME, pageName);
+        clickToElement(driver, SideBarPageUI.DYNAMIC_SIDEBAR_LINK_BY_NAME, pageName);
+    }
+
     // Open page at the My Account Page side
     public AddressPageObject openAddressPage(WebDriver driver) {
         waitForElementVisible(driver, SideBarPageUI.ADDRESS_LINK);

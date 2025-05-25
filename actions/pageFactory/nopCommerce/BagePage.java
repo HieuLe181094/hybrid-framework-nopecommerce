@@ -1,5 +1,6 @@
 package pageFactory.nopCommerce;
 
+import commons.GlobalConstants;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -41,7 +42,7 @@ public class BagePage {
 
 
     private Alert waitToAlertPresence(WebDriver driver) {
-        return new WebDriverWait(driver, Duration.ofSeconds(LONG_TIMEOUT)).until(ExpectedConditions.alertIsPresent());
+        return new WebDriverWait(driver, Duration.ofSeconds(GlobalConstants.LONG_TIMEOUT)).until(ExpectedConditions.alertIsPresent());
     }
 
     public void acceptAlert(WebDriver driver) {
@@ -65,7 +66,7 @@ public class BagePage {
         for (String runWindows : allWindowIDs) {
             if (!runWindows.equals(parentID)) {
                 driver.switchTo().window(runWindows);
-                sleepInSecond(LONG_TIMEOUT);
+                sleepInSecond(GlobalConstants.LONG_TIMEOUT);
                 driver.close();
             }
         }
@@ -93,18 +94,18 @@ public class BagePage {
     }
 
     public WebElement waitForElementVisible(WebDriver driver, WebElement element){
-        return new WebDriverWait(driver, Duration.ofSeconds(LONG_TIMEOUT)).until(ExpectedConditions.visibilityOf(element));
+        return new WebDriverWait(driver, Duration.ofSeconds(GlobalConstants.LONG_TIMEOUT)).until(ExpectedConditions.visibilityOf(element));
     }
 
     public List<WebElement> waitForListElementVisible(WebDriver driver, List<WebElement> elements){
-        return new WebDriverWait(driver,Duration.ofSeconds(LONG_TIMEOUT)).until(ExpectedConditions.visibilityOfAllElements(elements));
+        return new WebDriverWait(driver,Duration.ofSeconds(GlobalConstants.LONG_TIMEOUT)).until(ExpectedConditions.visibilityOfAllElements(elements));
     }
 
     public WebElement waitForElementClickable(WebDriver driver,WebElement element) {
-        return new WebDriverWait(driver, Duration.ofSeconds(LONG_TIMEOUT)).until(ExpectedConditions.elementToBeClickable(element));
+        return new WebDriverWait(driver, Duration.ofSeconds(GlobalConstants.LONG_TIMEOUT)).until(ExpectedConditions.elementToBeClickable(element));
     }
 
-    private long LONG_TIMEOUT = 30;
+
 
 }
 
