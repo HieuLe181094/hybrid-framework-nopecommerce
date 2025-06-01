@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import pageObjects.PageGenerator;
 import pageObjects.nopCommerce.*;
 import pageObjects.nopCommerce.sideBar.UserCustomerInforPageObject;
+import pageUIs.jQuery.HomePageUI;
 import pageUIs.nopCommerce.*;
 
 import java.time.Duration;
@@ -210,6 +211,7 @@ public class BasePage {
 
 
     public void sendkeyToElement(WebDriver driver, String locator, String valueToSend) {
+        // 1 element là thẻ input mà bị ẩn -> Lỗi trên Firefox
         getWebElement(driver,locator).clear();
         getWebElement(driver,locator).sendKeys(valueToSend);
     }
@@ -518,6 +520,26 @@ public class BasePage {
     public boolean waitToElementSelected(WebDriver driver,String locator){
         return new WebDriverWait(driver, Duration.ofSeconds(LONG_TIMEOUT)).
                 until(ExpectedConditions.elementToBeSelected(getByLocator(locator)));
+    }
+
+    public void uploadMultipleFiles(WebDriver driver, String... fileNames){
+        // Lấy ra đường dẫn của thư mục upload file
+        String filePath = GlobalConstants.UPLOAD_PATH;
+
+        // By inputBy = By.xpath("//input[@type='file']");
+        // driver.findElement(inputBy).sendKeys(bodyPath + "\n" + heartPath + "\n" + intelligentPath);
+        String fullFileName = "";
+
+        // Dùng vòng lặp duyệt qua các file name
+        for (String file: fileNames) {
+            fullFileName += filePath +file + "\n";
+        }
+
+        // Cắt kí tự xuống dòng (\n) ở 2 đầu chuỗi đi
+        fullFileName = fullFileName.trim();
+
+        // Sendkey
+        getWebElement(driver, HomePageUI.UPLOAD_FILE_TYPE).sendKeys(fullFileName);
     }
 
     public UserCustomerInforPageObject clickToMyAccountLinkAtUserSite(WebDriver driver) {

@@ -3,12 +3,12 @@
 <suite name="Nopcommerce UI Automation" verbose="1" >
 
     <parameter name="urlUser" value="http://localhost/"/>
-    <parameter name="urlAdmin" value="https://admin-demo.nopcommerce.com/"/>
+    <parameter name="urlAdmin" value="http://localhost/login?ReturnUrl=%2Fadmin"/>
 
     <test name="Run on Edge browser" >
         <parameter name="browser" value="edge"/>
         <classes>
-            <class name="com.nopcommerce.Level_09_Switch_URL"/>
+            <class name="com.nopcommerce.Level_11_Dynamic_Page"/>
         </classes>
     </test>
 

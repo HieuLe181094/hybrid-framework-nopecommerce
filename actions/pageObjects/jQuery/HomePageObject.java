@@ -1,6 +1,7 @@
 package pageObjects.jQuery;
 
 import commons.BasePage;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -170,5 +171,28 @@ public class HomePageObject extends BasePage {
             }
         }
         return expectedAllRowContainResult;
+    }
+
+
+    public boolean isFileLoadedByName(String fileName) {
+        waitForElementVisible(driver, HomePageUI.FILE_LOADED_BY_FILE_NAME, fileName);
+        return isElementDisplayed(driver, HomePageUI.FILE_LOADED_BY_FILE_NAME, fileName);
+    }
+
+    public void clickToUpLoadButton(WebDriver driver) {
+        // Chỉ click đc 1 button
+        // waitForElementClickable(driver, HomePageUI.UPLOAD_BUTTON);
+        // clickToElement(driver, HomePageUI.UPLOAD_BUTTON);
+
+        List<WebElement> startButtons = getListWebElement(driver, HomePageUI.UPLOAD_BUTTON);
+        for (WebElement startButton : startButtons){
+            startButton.click();
+            sleepInSecond(3);
+        }
+    }
+
+    public boolean isFileUploadedByName(String fileName) {
+        waitForElementVisible(driver, HomePageUI.FILE_UPLOADED_SUCCESS_BY_FILE_NAME, fileName);
+        return isElementDisplayed(driver, HomePageUI.FILE_UPLOADED_SUCCESS_BY_FILE_NAME, fileName);
     }
 }
