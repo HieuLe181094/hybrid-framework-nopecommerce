@@ -7,13 +7,13 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pageObjects.PageGenerator;
 import pageObjects.nopCommerce.*;
 import pageObjects.nopCommerce.sideBar.UserCustomerInforPageObject;
 import pageUIs.nopCommerce.*;
 
 import java.time.Duration;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 public class BasePage {
@@ -190,9 +190,15 @@ public class BasePage {
         return driver.findElement(getByLocator(locator));
     }
 
-    private List<WebElement> getListWebElement(WebDriver driver, String locator) {
+    public  List<WebElement> getListWebElement(WebDriver driver, String locator) {
         return driver.findElements(getByLocator(locator));
     }
+
+    public  List<WebElement> getListWebElement(WebDriver driver, String locator, String... restParam) {
+        return driver.findElements(getByLocator(castLocator(locator, restParam)));
+    }
+
+
 
     public void clickToElement(WebDriver driver, String locator){
         getWebElement(driver, locator).click();
@@ -249,9 +255,9 @@ public class BasePage {
         }
     }
 
-    private void sleepInSecond(long timeInSecond)  {
+    public void sleepInSecond(long timeInSecond)  {
         try {
-            Thread.sleep(2000);
+            Thread.sleep(timeInSecond * 1000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -301,9 +307,21 @@ public class BasePage {
             }
     }
 
+    public void checkToCheckboxRadio(WebDriver driver, String locator, String... restParam) {
+        if (!getWebElement(driver,castLocator(locator, restParam)).isSelected()){
+            getWebElement(driver,castLocator(locator, restParam)).click();
+        }
+    }
+
     public void uncheckToCheckboxRadio(WebDriver driver, String locator ){
         if (getWebElement(driver,locator).isSelected()){
             getWebElement(driver,locator).click();
+        }
+    }
+
+    public void uncheckToCheckboxRadio(WebDriver driver, String locator, String... restParam ){
+        if (getWebElement(driver,castLocator(locator, restParam)).isSelected()){
+            getWebElement(driver,castLocator(locator, restParam)).click();
         }
     }
 
@@ -349,6 +367,10 @@ public class BasePage {
 
     public void sendkeyBoardToElement(WebDriver driver, String locator, Keys key){
         new Actions(driver).sendKeys(getWebElement(driver,locator),key).perform();
+    }
+
+    public void sendkeyBoardToElement(WebDriver driver, String locator, Keys key, String... values){
+        new Actions(driver).sendKeys(getWebElement(driver,castLocator(locator, values)),key).perform();
     }
 
     public String getDomain(WebDriver driver) {
@@ -421,6 +443,26 @@ public class BasePage {
     public boolean isImageLoaded(WebDriver driver,String locator) {
         return (boolean) ((JavascriptExecutor) driver).executeScript("return arguments[0].complete && typeof arguments[0].naturalWidth != 'undefined' && arguments[0].naturalWidth > 0"
                 , getWebElement(driver,locator));
+    }
+
+    public Boolean waitForElementAttributeToBe(WebDriver driver,String locator, String attributeName, String attributeValue) {
+        return new WebDriverWait(driver, Duration.ofSeconds(GlobalConstants.LONG_TIMEOUT))
+                .until(ExpectedConditions.attributeContains(getByLocator(locator), attributeName, attributeValue));
+    }
+
+    public Boolean waitForElementAttributeToBe(WebDriver driver,String locator, String attributeName, String attributeValue, String... restParam) {
+        return new WebDriverWait(driver, Duration.ofSeconds(GlobalConstants.LONG_TIMEOUT))
+                .until(ExpectedConditions.attributeToBe(getByLocator(castLocator(locator, restParam)), attributeName, attributeValue));
+    }
+
+    public Boolean waitForElementAttributeContain(WebDriver driver,String locator, String attributeName, String attributeValue) {
+        return new WebDriverWait(driver, Duration.ofSeconds(GlobalConstants.LONG_TIMEOUT))
+                .until(ExpectedConditions.attributeContains(getByLocator(locator), attributeName, attributeValue));
+    }
+
+    public Boolean waitForElementAttributeContain(WebDriver driver,String locator, String attributeName, String attributeValue, String... restParam) {
+        return new WebDriverWait(driver, Duration.ofSeconds(GlobalConstants.LONG_TIMEOUT))
+                .until(ExpectedConditions.attributeContains(getByLocator(castLocator(locator, restParam)), attributeName, attributeValue));
     }
 
     public WebElement waitForElementVisible(WebDriver driver,String locator){

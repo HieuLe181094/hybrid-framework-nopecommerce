@@ -1,7 +1,10 @@
-package pageObjects.nopCommerce;
+package pageObjects;
 
 import commons.BasePage;
 import org.openqa.selenium.WebDriver;
+import pageObjects.nopCommerce.UserHomePageObject;
+import pageObjects.nopCommerce.UserLoginPageObject;
+import pageObjects.nopCommerce.UserRegisterPageObject;
 import pageObjects.nopCommerce.sideBar.AddressPageObject;
 import pageObjects.nopCommerce.sideBar.UserCustomerInforPageObject;
 

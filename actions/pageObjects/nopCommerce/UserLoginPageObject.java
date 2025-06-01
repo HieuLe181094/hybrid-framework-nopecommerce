@@ -2,6 +2,7 @@ package pageObjects.nopCommerce;
 
 import commons.BasePage;
 import org.openqa.selenium.WebDriver;
+import pageObjects.PageGenerator;
 import pageUIs.nopCommerce.UserLoginPageUI;
 
 public class UserLoginPageObject extends BasePage {

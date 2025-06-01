@@ -2,7 +2,7 @@ package pageObjects.nopCommerce.sideBar;
 
 import commons.BasePage;
 import org.openqa.selenium.WebDriver;
-import pageObjects.nopCommerce.PageGenerator;
+import pageObjects.PageGenerator;
 import pageUIs.nopCommerce.BasePageUI;
 import pageUIs.nopCommerce.sideBar.SideBarPageUI;
 
