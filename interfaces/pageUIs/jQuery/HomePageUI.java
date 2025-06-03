@@ -31,6 +31,10 @@ public class HomePageUI {
     public static final String UPLOAD_BUTTON = "Css=td>button.start";
     public static final String FILE_UPLOADED_SUCCESS_BY_FILE_NAME = "Xpath=//p[@class='name']/a[@title='%s']";
 
+    // https://live.techpanda.org/
+    public static final String MY_ACCOUNT_POPUP = "Xpath=//div/a/span[text()='%s']";
+    public static final String LOGIN_LINK_ON_MYACCOUNTPOPUP = "Xpath=//div[@id='header-account']/div/ul/li/a[@title='%s']";
+
 
 
 

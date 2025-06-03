@@ -1,6 +1,7 @@
 package pageUIs.nopCommerce;
 
 public class UserRegisterPageUI {
+    public static final String REGISTER_PAGE_TITLE = "Xpath=//div[@class='page-title']/h1";
     public static final String FIRST_NAME_TEXTBOX = "Xpath=//input[@id='FirstName']";
     public static final String LAST_NAME_TEXTBOX = "Xpath=//input[@id='LastName']";
     public static final String EMAIL_TEXTBOX = "Xpath=//input[@id='Email']";

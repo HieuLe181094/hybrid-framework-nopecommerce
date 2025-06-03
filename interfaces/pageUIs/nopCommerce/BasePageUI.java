@@ -12,6 +12,8 @@ public class BasePageUI {
     public static final String USER_LOGOUT_LINK = "Xpath=//a[@class='ico-logout']";
     public static final String USER_MY_ACCOUNT_LINK = "Xpath=//a[@class='ico-account']";
 
+
+
     // Admin Site
     public static final String ADMIN_LOGOUT_LINK = "Xpath=//a[text()='Logout']";
     public static final String ADMIN_PRODUCT_MENU = "Xpath=//p[text()=' Products']/ancestor::li[contains(@class,'has-treeview')]";

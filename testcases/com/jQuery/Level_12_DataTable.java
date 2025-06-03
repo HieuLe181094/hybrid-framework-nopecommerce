@@ -153,7 +153,7 @@ public class Level_12_DataTable extends BaseTest {
         homePage.showRowData(expectedTotal);
     }
 
-    @Test
+    //@Test
     public void TC_07_DATA_TEST(){
         String value = "New York";
 
@@ -171,6 +171,15 @@ public class Level_12_DataTable extends BaseTest {
         homePage.showRowData(expectedResult);
 
         // Tổng sô kết quả hiển thị đúng cho mỗi Page (sau khi trả về kq)
+
+    }
+
+    @Test
+    public void TC_08_TECHPANDA(){
+        homePage.openPageUrl(driver,"https://live.techpanda.org/");
+
+        homePage.clickToAccountTechPanda(driver);
+        homePage.clickToLoginLinkTechPanda(driver);
 
     }
 

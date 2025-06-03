@@ -25,5 +25,8 @@ public class UserHomePageObject extends BasePage {
         return PageGenerator.getPageInstance(UserLoginPageObject.class,driver);
     }
 
-
+    public boolean isMyAccountLinkDisplayed() {
+        waitForElementVisible(driver, BasePageUI.USER_MY_ACCOUNT_LINK);
+        return getWebElement(driver, BasePageUI.USER_MY_ACCOUNT_LINK).isDisplayed();
+    }
 }

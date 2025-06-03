@@ -195,4 +195,15 @@ public class HomePageObject extends BasePage {
         waitForElementVisible(driver, HomePageUI.FILE_UPLOADED_SUCCESS_BY_FILE_NAME, fileName);
         return isElementDisplayed(driver, HomePageUI.FILE_UPLOADED_SUCCESS_BY_FILE_NAME, fileName);
     }
+
+
+    public void clickToAccountTechPanda(WebDriver driver) {
+        waitForElementClickable(driver, HomePageUI.MY_ACCOUNT_POPUP);
+        clickToElement(driver, HomePageUI.MY_ACCOUNT_POPUP);
+    }
+
+    public void clickToLoginLinkTechPanda(WebDriver driver) {
+        waitForElementClickable(driver, HomePageUI.LOGIN_LINK_ON_MYACCOUNTPOPUP);
+        clickToElement(driver, HomePageUI.LOGIN_LINK_ON_MYACCOUNTPOPUP);
+    }
 }
