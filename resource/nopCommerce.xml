@@ -3,7 +3,8 @@
 <suite name="Nopcommerce UI Automation" verbose="1" >
     
     <listeners>
-        <listener class-name="commons.MethodListener"></listener>
+        <listener class-name="commons.MethodListener"/>
+        <listener class-name="reportConfig.AllureListener"/>
     </listeners>
 
     <parameter name="urlUser" value="http://localhost/"/>
@@ -12,7 +13,7 @@
     <test name="Run on Edge browser" >
         <parameter name="browser" value="edge"/>
         <classes>
-            <class name="com.nopcommerce.Level_14_Verify"/>
+            <class name="com.nopcommerce.Level_17_AllureReport"/>
         </classes>
     </test>
 

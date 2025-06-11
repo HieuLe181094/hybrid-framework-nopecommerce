@@ -9,14 +9,11 @@ import org.openqa.selenium.remote.SessionId;
 
 public class SessionDriver {
     public static void main(String[] agrs){
-        WebDriver driver = new FirefoxDriver();
-        SessionId sessionID = ((RemoteWebDriver) driver).getSessionId();
-        System.out.println("SessionID = " + sessionID);
+//        WebDriver driver = new FirefoxDriver();
+//        SessionId sessionID = ((RemoteWebDriver) driver).getSessionId();
+//        System.out.println("SessionID = " + sessionID);
+//        System.out.println("Driver ID =" + driver.toString());
 
-        // GUID - Global Unique Indentifier (chũ + số)
-        // ADN của 1 người
-        // Dấu vân tay
-
-        System.out.println("Driver ID =" + driver.toString());
+        System.out.println(System.getProperty("java.version"));
     }
 }

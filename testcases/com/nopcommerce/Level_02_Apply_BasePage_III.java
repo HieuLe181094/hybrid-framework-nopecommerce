@@ -1,12 +1,23 @@
 package com.nopcommerce;
 
 import commons.BasePage;
+import commons.BaseTest;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import pageObjects.PageGenerator;
+import pageObjects.nopCommerce.UserHomePageObject;
+import pageObjects.nopCommerce.UserLoginPageObject;
+import pageObjects.nopCommerce.UserRegisterPageObject;
+import pageObjects.nopCommerce.sideBar.AddressPageObject;
+import pageObjects.nopCommerce.sideBar.OrderPageObject;
+import pageObjects.nopCommerce.sideBar.RewardPointPageObject;
+import pageObjects.nopCommerce.sideBar.UserCustomerInforPageObject;
 
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -129,6 +140,11 @@ public class Level_02_Apply_BasePage_III extends BasePage {
         Random rand = new Random();
         return rand.nextInt(9999);
     }
+
+
+
+
+
 
 
 }

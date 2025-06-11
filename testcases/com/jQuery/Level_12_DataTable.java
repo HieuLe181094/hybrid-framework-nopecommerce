@@ -1,6 +1,7 @@
 package com.jQuery;
 
 import commons.BaseTest;
+
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Level_12_DataTable extends BaseTest {
+
     @Parameters({"url","browser"})
     @BeforeClass
     public void beforeClass(String urlValue, String browserName) {

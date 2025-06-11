@@ -7,6 +7,10 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import pageObjects.PageGenerator;
+import pageObjects.nopCommerce.sideBar.AddressPageObject;
+import pageObjects.nopCommerce.sideBar.OrderPageObject;
+import pageObjects.nopCommerce.sideBar.RewardPointPageObject;
 import pageObjects.nopCommerce.sideBar.UserCustomerInforPageObject;
 import pageObjects.nopCommerce.UserHomePageObject;
 import pageObjects.nopCommerce.UserLoginPageObject;
@@ -96,5 +100,6 @@ public class Level_06_PageGenerator_I extends BaseTest {
     UserRegisterPageObject registerPage;
     UserCustomerInforPageObject customerPage;
     String firstName, lastName, emailAddress, companyName, password;
+
 
 }
