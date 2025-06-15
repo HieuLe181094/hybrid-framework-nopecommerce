@@ -16,6 +16,7 @@ import pageUIs.nopCommerce.*;
 import java.time.Duration;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 public class BasePage {
 
@@ -327,12 +328,39 @@ public class BasePage {
         }
     }
 
-    public boolean isElementDisplayed(WebDriver driver, String locator) {
-        return getWebElement(driver,locator).isDisplayed();
+    // Implicit wait
+    // driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(GlobalConstants.LONG_TIMEOUT));
+    public void overideGlobalTimeout(WebDriver driver, long timeInSecond){
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(timeInSecond));
     }
+
+    public boolean isElementDisplayed(WebDriver driver, String locator) {
+        List<WebElement> elements = getListWebElement(driver,locator);
+
+        return getWebElement(driver, castLocator(locator)).isDisplayed();
+    }
+
+
 
     public boolean isElementDisplayed(WebDriver driver, String locator, String... restParam) {
         return getWebElement(driver, castLocator(locator, restParam)).isDisplayed();
+    }
+
+    public boolean isElementUndisplayed(WebDriver driver, String locator){
+        overideGlobalTimeout(driver, GlobalConstants.SHORT_TIMEOUT);
+        List<WebElement> elements = getListWebElement(driver, locator);
+        overideGlobalTimeout(driver, GlobalConstants.LONG_TIMEOUT);
+
+        if (elements.size() == 0){
+            System.out.println("Case 3 - Verify Email Error Message is not displayed (non- present)");
+            return true;
+        } else if (elements.size() > 0 && !elements.get(0).isDisplayed()) {
+            System.out.println("Case 2 - Verify Email Error Message is not displayed (present)");
+            return true;
+        } else {
+            System.out.println("Case 1 - Verify Email Error Message is displayed (visible)");
+            return false;
+        }
     }
 
     public boolean isElementSelected(WebDriver driver, String locator) {

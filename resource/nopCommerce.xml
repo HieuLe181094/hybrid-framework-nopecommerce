@@ -4,7 +4,8 @@
     
     <listeners>
         <listener class-name="commons.MethodListener"/>
-        <listener class-name="reportConfig.AllureListener"/>
+        <listener class-name="jiraConfigs.JiraListener"/>
+
     </listeners>
 
     <parameter name="urlUser" value="http://localhost/"/>
@@ -13,7 +14,7 @@
     <test name="Run on Edge browser" >
         <parameter name="browser" value="edge"/>
         <classes>
-            <class name="com.nopcommerce.Level_17_AllureReport"/>
+            <class name="com.nopcommerce.Level_18_JIRA"/>
         </classes>
     </test>
 
