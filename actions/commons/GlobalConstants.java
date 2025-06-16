@@ -44,7 +44,7 @@ public class GlobalConstants {
 
     public static final String JIRA_SITE_URL = "https://lengoduchieu-auto.atlassian.net/";
     public static final String JIRA_USERNAME = "lengoduchieu@gmail.com";
-
+    public static final String ATLASSIAN_API_TOKEN = System.getenv("ATLASSIAN_API_TOKEN");
     public static final String JIRA_PROJECT_KEY ="SCRUM";
 
 }

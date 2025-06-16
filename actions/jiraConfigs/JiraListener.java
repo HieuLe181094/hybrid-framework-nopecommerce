@@ -14,7 +14,7 @@ public class JiraListener implements ITestListener {
                 .getAnnotation(JiraCreateIssue.class).isCreateIssue();
         if (islogIssue) {
             JiraServiceProvider JiraServiceProvider = new JiraServiceProvider
-                    (GlobalConstants.JIRA_SITE_URL, GlobalConstants.JIRA_USERNAME, GlobalConstants.JIRA_API_KEY, GlobalConstants.JIRA_PROJECT_KEY);
+                    (GlobalConstants.JIRA_SITE_URL, GlobalConstants.JIRA_USERNAME, GlobalConstants.ATLASSIAN_API_TOKEN, GlobalConstants.JIRA_PROJECT_KEY);
             String issueDescription = "Failure Reason from Automation Testing\n\n" + result.getThrowable().getMessage() + "\n";
             issueDescription.concat(ExceptionUtils.getFullStackTrace(result.getThrowable()));
             String issueSummary = result.getMethod().getConstructorOrMethod().getMethod()
