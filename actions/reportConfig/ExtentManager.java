@@ -16,19 +16,21 @@ public class ExtentManager {
 
     public synchronized static ExtentReports createExtentReports() {
         ExtentSparkReporter reporter = new ExtentSparkReporter(GlobalConstants.EXTENT_PATH + "ExtentReport.html");
-        reporter.config().setReportName("NopCommerce HTML Report");
-        reporter.config().setDocumentTitle("NopCommerce HTML Report");
+        reporter.config().setReportName("TechPanda HTML Report");
+        reporter.config().setDocumentTitle("TechPanda HTML Report");
         reporter.config().setTimelineEnabled(true);
         reporter.config().setEncoding("utf-8");
         reporter.config().setTheme(Theme.DARK);
 
         extentReports.attachReporter(reporter);
         extentReports.setSystemInfo("Company", "Automation FC");
-        extentReports.setSystemInfo("Project", "NopCommerce");
+        extentReports.setSystemInfo("Project", "TechPanda");
         extentReports.setSystemInfo("Team", "Basus VN");
         extentReports.setSystemInfo("JDK version", GlobalConstants.JAVA_VERSION);
         extentReports.setSystemInfo("OS version", GlobalConstants.OS_NAME);
         return extentReports;
+
+
     }
 
 
