@@ -1,11 +1,11 @@
 package com.nopcommerce;
 
 import commons.BaseTest;
+
+import jiraConfigs.JiraCreateIssue;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Parameters;
-import org.testng.annotations.Test;
+import org.testng.Assert;
+import org.testng.annotations.*;
 import pageObjects.PageGenerator;
 import pageObjects.nopCommerce.UserHomePageObject;
 import pageObjects.nopCommerce.UserLoginPageObject;
@@ -15,65 +15,81 @@ import pageObjects.nopCommerce.sideBar.OrderPageObject;
 import pageObjects.nopCommerce.sideBar.RewardPointPageObject;
 import pageObjects.nopCommerce.sideBar.UserCustomerInforPageObject;
 
-public class Level_14_Verify extends BaseTest {
+
+public class Level_20_Pattern_Object extends BaseTest {
+
     @Parameters({"urlUser","browser"})
     @BeforeClass
+
     public void beforeClass(String urlValue, String browserName) {
         driver = getBrowserDriver(urlValue,browserName);
-        homePage = PageGenerator.getPageInstance(UserHomePageObject.class,driver);
 
         firstName = "Marley";
         lastName = "Grollmann";
         emailAddress = "afc" + generateFakeNumber() + "@mail.vn";
         companyName ="Twiyo";
         password = "gK3@*09`%NO";
+
+        homePage = PageGenerator.getPageInstance(UserHomePageObject.class,driver);
+
     }
+
 
     @Test
     public void TC_01_Register() {
         homePage.clickToRegisterLink();
         registerPage = PageGenerator.getPageInstance(UserRegisterPageObject.class,driver);
 
-        // Assert 01
-        verifyEquals(registerPage.getRegisterPageTitle(),"Register");
+        registerPage.clickToRadioByID(driver, "gender-female");
 
-        registerPage.enterToFirstNameTextbox(firstName);
-        registerPage.enterToLastNameTextbox(lastName);
-        registerPage.enterToEmailTextbox(emailAddress);
-        registerPage.enterToPasswordTextbox(password);
-        registerPage.enterToConformPasswordTextbox(password);
-        registerPage.clickToRegisterButton();
+        registerPage.enterToTextboxByID(driver, "FirstName", firstName);
+        registerPage.enterToTextboxByID(driver, "LastName",lastName);
+        registerPage.enterToTextboxByID(driver, "Email",emailAddress);
+        registerPage.enterToTextboxByID(driver, "Company",companyName);
 
-        // Assert 02
-        verifyEquals(registerPage.getRegisterSuccessMessage(),"Your registration completed");
+        registerPage.clickToCheckBoxByID(driver, "Newsletter");
+
+        registerPage.enterToTextboxByID(driver, "Password", password);
+        registerPage.enterToTextboxByID(driver, "ConfirmPassword",password);
+
+        registerPage.clickButtonByText(driver,"Register");
+
+        Assert.assertEquals(registerPage.getRegisterSuccessMessage(),"Your registration completed");
 
         registerPage.clickToLogoutLinkAtUserSite(driver);
         homePage = PageGenerator.getPageInstance(UserHomePageObject.class,driver);
+
     }
+
 
     @Test
     public void TC_02_Login() {
         homePage.clickToLoginLink();
         loginPage = PageGenerator.getPageInstance(UserLoginPageObject.class,driver);
 
-        loginPage.enterToEmailTextbox(emailAddress);
-        loginPage.enterToPasswordTextbox(password);
-        loginPage.clickToLoginButton();
+        loginPage.enterToTextboxByID(driver, "Email", emailAddress);
+        loginPage.enterToTextboxByID(driver, "Password", password);
+
+        loginPage.clickButtonByText(driver, "Log in");
 
         homePage = PageGenerator.getPageInstance(UserHomePageObject.class,driver);
-
-        verifyTrue(homePage.isMyAccountLinkDisplayed());
-
     }
+
 
     @Test
     public void TC_03_MyAccount() {
         homePage.clickToMyAccountLinkAtUserSite(driver);
         customerPage = PageGenerator.getPageInstance(UserCustomerInforPageObject.class,driver);
 
-        verifyEquals(customerPage.getFirstNameTextboxValue(),firstName);
-        verifyEquals(customerPage.getLastNameTextboxValue(),lastName);
-        verifyEquals(customerPage.getEmailAddressTextboxValue(),emailAddress);
+        Assert.assertTrue(customerPage.isGenderMaleSelected(driver, "gender-female"));
+
+        Assert.assertEquals(customerPage.getTextboxValueByID(driver, "FirstName"),firstName);
+        Assert.assertEquals(customerPage.getTextboxValueByID(driver, "LastName"),lastName);
+        Assert.assertEquals(customerPage.getTextboxValueByID(driver, "Email"),emailAddress);
+        Assert.assertEquals(customerPage.getTextboxValueByID(driver, "Company"),companyName);
+
+        Assert.assertTrue(customerPage.isNewletterCheckboxSelected(driver, "Newsletter"));
+
     }
 
 

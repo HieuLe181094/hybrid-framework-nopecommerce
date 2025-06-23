@@ -16,7 +16,6 @@ import pageUIs.nopCommerce.*;
 import java.time.Duration;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
 public class BasePage {
 
@@ -367,6 +366,10 @@ public class BasePage {
         return getWebElement(driver,locator).isSelected();
     }
 
+    public boolean isElementSelected(WebDriver driver, String locator, String... restParam) {
+        return getWebElement(driver,castLocator(locator, restParam)).isSelected();
+    }
+
     public boolean isElementEnable(WebDriver driver, String locator) {
         return getWebElement(driver,locator).isEnabled();
     }
@@ -550,6 +553,11 @@ public class BasePage {
                 until(ExpectedConditions.elementToBeSelected(getByLocator(locator)));
     }
 
+    public boolean waitToElementSelected(WebDriver driver,String locator, String... restParam){
+        return new WebDriverWait(driver, Duration.ofSeconds(LONG_TIMEOUT)).
+                until(ExpectedConditions.elementToBeSelected(getByLocator(castLocator(locator, restParam))));
+    }
+
     public void uploadMultipleFiles(WebDriver driver, String... fileNames){
         // Lấy ra đường dẫn của thư mục upload file
         String filePath = GlobalConstants.UPLOAD_PATH;
@@ -570,6 +578,7 @@ public class BasePage {
         getWebElement(driver, HomePageUI.UPLOAD_FILE_TYPE).sendKeys(fullFileName);
     }
 
+    // Only use for NopCommerce
     public UserCustomerInforPageObject clickToMyAccountLinkAtUserSite(WebDriver driver) {
         waitForElementClickable(driver, BasePageUI.USER_MY_ACCOUNT_LINK);
         clickToElement(driver, BasePageUI.USER_MY_ACCOUNT_LINK);
@@ -581,7 +590,6 @@ public class BasePage {
         clickToElement(driver, BasePageUI.USER_LOGOUT_LINK);
         return PageGenerator.getPageInstance(UserHomePageObject.class,driver);
     }
-
 
     public AdminLoginPageObject openAdminSite(WebDriver driver, String adminUrl) {
         openPageUrl(driver, adminUrl);
@@ -632,6 +640,41 @@ public class BasePage {
         clickToElement(driver, BasePageUI.ADMIN_PRODUCT_SUBMENU);
 
         return PageGenerator.getPageInstance(AdminProductPageObject.class,driver);
+    }
+
+    public void enterToTextboxByID(WebDriver driver, String textboxID, String value) {
+        waitForElementVisible(driver, BasePageUI.TEXTBOX_BY_ID, textboxID);
+        sendkeyToElement(driver, BasePageUI.TEXTBOX_BY_ID, value, textboxID);
+    }
+
+    public void clickButtonByText(WebDriver driver,String buttonText) {
+        waitForElementClickable(driver, BasePageUI.BUTTON_BY_ID, buttonText);
+        clickToElement(driver, BasePageUI.BUTTON_BY_ID, buttonText);
+    }
+
+    public void clickToRadioByID(WebDriver driver, String radioID) {
+        waitForElementClickable(driver, BasePageUI.RADIO_BY_ID, radioID);
+        checkToCheckboxRadio(driver, BasePageUI.RADIO_BY_ID, radioID);
+    }
+
+    public void clickToCheckBoxByID(WebDriver driver, String checkboxID) {
+        waitForElementClickable(driver, BasePageUI.CHECKBOX_BY_ID, checkboxID);
+        checkToCheckboxRadio(driver, BasePageUI.CHECKBOX_BY_ID, checkboxID);
+    }
+
+    public String getTextboxValueByID(WebDriver driver, String textboxID) {
+        waitForElementVisible(driver, BasePageUI.TEXTBOX_BY_ID, textboxID);
+        return getElementAttribute(driver, BasePageUI.TEXTBOX_BY_ID, "value", textboxID );
+    }
+
+    public boolean isGenderMaleSelected(WebDriver driver, String radioID) {
+        waitToElementSelected(driver, BasePageUI.RADIO_BY_ID, radioID);
+        return isElementSelected(driver, BasePageUI.RADIO_BY_ID, radioID);
+    }
+
+    public boolean isNewletterCheckboxSelected(WebDriver driver, String checkboxID) {
+        waitToElementSelected(driver, BasePageUI.CHECKBOX_BY_ID, checkboxID);
+        return isElementSelected(driver, BasePageUI.CHECKBOX_BY_ID, checkboxID);
     }
 }
 

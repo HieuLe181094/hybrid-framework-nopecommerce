@@ -12,12 +12,16 @@ public class BasePageUI {
     public static final String USER_LOGOUT_LINK = "Xpath=//a[@class='ico-logout']";
     public static final String USER_MY_ACCOUNT_LINK = "Xpath=//a[@class='ico-account']";
 
-
-
     // Admin Site
     public static final String ADMIN_LOGOUT_LINK = "Xpath=//a[text()='Logout']";
     public static final String ADMIN_PRODUCT_MENU = "Xpath=//p[text()=' Products']/ancestor::li[contains(@class,'has-treeview')]";
     public static final String ADMIN_PRODUCT_SUBMENU = "Xpath=//p[text()=' Products']";
+
+    // Component
+    public static final String TEXTBOX_BY_ID = "Xpath=//input[@id='%s']";
+    public static final String BUTTON_BY_ID = "Xpath=//button[text()='%s']";
+    public static final String CHECKBOX_BY_ID = "Xpath=//input[@id='%s']";
+    public static final String RADIO_BY_ID = "Xpath=//input[@id='%s']";
 
 
 }
