@@ -1,4 +1,4 @@
-package com.nopcommerce;
+package com.nopcommerce.users;
 
 import commons.BaseTest;
 import org.openqa.selenium.WebDriver;
@@ -8,12 +8,13 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import pageObjects.PageGenerator;
-import pageObjects.nopCommerce.UserHomePageObject;
-import pageObjects.nopCommerce.UserLoginPageObject;
-import pageObjects.nopCommerce.UserRegisterPageObject;
+import pageObjects.nopCommerce.*;
+import pageObjects.nopCommerce.sideBar.AddressPageObject;
 import pageObjects.nopCommerce.sideBar.UserCustomerInforPageObject;
+import pageObjects.nopCommerce.sideBar.OrderPageObject;
+import pageObjects.nopCommerce.sideBar.RewardPointPageObject;
 
-public class Level_06_PageGenerator_IV extends BaseTest {
+public class Level_08_PageNavigation extends BaseTest {
     @Parameters({"url","browser"})
     @BeforeClass
     public void beforeClass(String urlValue, String browserName) {
@@ -27,14 +28,23 @@ public class Level_06_PageGenerator_IV extends BaseTest {
 
         homePage = PageGenerator.getPageInstance(UserHomePageObject.class,driver);
 
-        // Compile Code
-        // PageGenerator.getPageInstance(BaseTest.class,driver);
-
     }
 
     @Test
     public void TC_01_Register() {
         homePage.clickToRegisterLink();
+
+        // Về mặt Business thì khi chưa đăng ký thì ko có xuất hiện
+        // Customer Info Page được
+//        registerPage.openCustomerPage(driver);
+
+        // Về mặt Coding thì nó chưa ràng buộc
+        // Vẫn gọi code ra được
+
+//        loginPage.openRewardPointPage(driver);
+//        loginPage.openOrderPage(driver);
+
+
         registerPage = PageGenerator.getPageInstance(UserRegisterPageObject.class,driver);
 
         registerPage.enterToFirstNameTextbox(firstName);
@@ -66,8 +76,8 @@ public class Level_06_PageGenerator_IV extends BaseTest {
         loginPage.enterToPasswordTextbox(password);
         loginPage.clickToLoginButton();
 
-        //        loginPage.loginToSystem(emailAddress,password);
-        //        loginPage.clickToLoginButton();
+//        loginPage.loginToSystem(emailAddress,password);
+//        loginPage.clickToLoginButton();
 
         // Từ page A qua lại page B
         // Tù Login về Home
@@ -87,6 +97,40 @@ public class Level_06_PageGenerator_IV extends BaseTest {
         Assert.assertEquals(customerPage.getEmailAddressTextboxValue(),emailAddress);
     }
 
+    @Test
+    public void TC_04_SwitchPage(){
+        // Customer -> Address
+        // ...
+        addressPage = customerPage.openAddressPage(driver);
+        System.out.println(addressPage.toString());
+
+        // Address -> Reward Point
+        // ...
+        rewardPointPage = addressPage.openRewardPointPage(driver);
+        System.out.println(registerPage.toString());
+
+        // Reward Point -> Order
+        // ...
+        orderPage = rewardPointPage.openOrderPage(driver);
+        System.out.println(orderPage.toString());
+
+        // Order -> Customer
+        // ...
+        customerPage = orderPage.openCustomerPage(driver);
+        System.out.println(customerPage.toString());
+
+        // Customer -> Reward Point
+        rewardPointPage = customerPage.openRewardPointPage(driver);
+        System.out.println(rewardPointPage.toString());
+
+        // Order -> Address
+        addressPage = orderPage.openAddressPage(driver);
+
+        // Address -> Order
+        orderPage = addressPage.openOrderPage(driver);
+
+    }
+
 
 
     @AfterClass
@@ -101,6 +145,9 @@ public class Level_06_PageGenerator_IV extends BaseTest {
     UserLoginPageObject loginPage;
     UserRegisterPageObject registerPage;
     UserCustomerInforPageObject customerPage;
+    OrderPageObject orderPage;
+    RewardPointPageObject rewardPointPage;
+    AddressPageObject addressPage;
     String firstName, lastName, emailAddress, companyName, password;
 
 }

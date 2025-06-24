@@ -1,4 +1,4 @@
-package com.nopcommerce;
+package com.nopcommerce.users;
 
 import commons.BaseTest;
 import org.openqa.selenium.WebDriver;
@@ -8,14 +8,16 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import pageObjects.PageGenerator;
-import pageObjects.nopCommerce.*;
+import pageObjects.nopCommerce.UserHomePageObject;
+import pageObjects.nopCommerce.UserLoginPageObject;
+import pageObjects.nopCommerce.UserRegisterPageObject;
 import pageObjects.nopCommerce.sideBar.AddressPageObject;
-import pageObjects.nopCommerce.sideBar.UserCustomerInforPageObject;
 import pageObjects.nopCommerce.sideBar.OrderPageObject;
 import pageObjects.nopCommerce.sideBar.RewardPointPageObject;
+import pageObjects.nopCommerce.sideBar.UserCustomerInforPageObject;
 
-public class Level_08_PageNavigation extends BaseTest {
-    @Parameters({"url","browser"})
+public class Level_11_Dynamic_Page extends BaseTest {
+    @Parameters({"urlUser","browser"})
     @BeforeClass
     public void beforeClass(String urlValue, String browserName) {
         driver = getBrowserDriver(urlValue,browserName);
@@ -98,7 +100,7 @@ public class Level_08_PageNavigation extends BaseTest {
     }
 
     @Test
-    public void TC_04_SwitchPage(){
+    public void TC_04_SwitchPage_Hard_Code(){
         // Customer -> Address
         // ...
         addressPage = customerPage.openAddressPage(driver);
@@ -131,6 +133,74 @@ public class Level_08_PageNavigation extends BaseTest {
 
     }
 
+    @Test
+    public void TC_05_SwitchPage_Dynamic_Page_Name_01(){
+        // Customer -> Address
+        // ...
+        addressPage = (AddressPageObject) customerPage.openSideBarByPageName("Addresses");
+
+        // Address -> Reward Point
+        // ...
+        rewardPointPage = (RewardPointPageObject) addressPage.openSideBarByPageName("Reward points");
+
+
+        // Reward Point -> Order
+        // ...
+        orderPage = (OrderPageObject) rewardPointPage.openSideBarByPageName("Orders");
+
+        // Order -> Customer
+        // ...
+        customerPage = (UserCustomerInforPageObject) orderPage.openSideBarByPageName("Customer info");
+
+
+        // Customer -> Reward Point
+        rewardPointPage = (RewardPointPageObject) customerPage.openSideBarByPageName("Reward points");
+
+
+        // Order -> Address
+        addressPage = (AddressPageObject) orderPage.openSideBarByPageName("Addresses");
+
+        // Address -> Order
+        orderPage = (OrderPageObject) addressPage.openSideBarByPageName("Orders");
+
+    }
+
+    @Test
+    public void TC_06_SwitchPage_Dynamic_Page_Name_02(){
+        // Customer -> Address
+        // ...
+        orderPage.openSideBar("Addresses");
+        addressPage = PageGenerator.getPageInstance(AddressPageObject.class, driver);
+
+        // Address -> Reward Point
+        // ...
+        addressPage.openSideBar("Reward points");
+        rewardPointPage = PageGenerator.getPageInstance(RewardPointPageObject.class, driver);
+
+
+        // Reward Point -> Order
+        // ...
+        rewardPointPage.openSideBar("Orders");
+        orderPage = PageGenerator.getPageInstance(OrderPageObject.class, driver);
+
+        // Order -> Customer
+        // ...
+        orderPage.openSideBar("Customer info");
+        customerPage = PageGenerator.getPageInstance(UserCustomerInforPageObject.class, driver);
+
+        // Customer -> Reward Point
+        customerPage.openSideBar("Reward points");
+        rewardPointPage = PageGenerator.getPageInstance(RewardPointPageObject.class, driver);
+
+        // Order -> Address
+        orderPage.openSideBar("Addresses");
+        addressPage = PageGenerator.getPageInstance(AddressPageObject.class, driver);
+
+        // Address -> Order
+        addressPage.openSideBar("Orders");
+        orderPage = PageGenerator.getPageInstance(OrderPageObject.class, driver);
+
+    }
 
 
     @AfterClass

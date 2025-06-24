@@ -1,6 +1,7 @@
-package com.nopcommerce;
+package com.nopcommerce.users;
 
 import commons.BaseTest;
+import commons.GlobalConstants;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -11,7 +12,7 @@ import pageObjects.PageGenerator;
 import pageObjects.nopCommerce.*;
 import pageObjects.nopCommerce.sideBar.UserCustomerInforPageObject;
 
-public class Level_09_Switch_URL extends BaseTest {
+public class Level_10_By_Locator extends BaseTest {
     @Parameters({"urlUser", "urlAdmin","browser"})
     @BeforeClass
     public void beforeClass(String userUrl, String adminUrl, String browserName) {
@@ -52,8 +53,8 @@ public class Level_09_Switch_URL extends BaseTest {
         // User site => Admin site
         adminLoginPage = userHomePage.openAdminSite(driver, adminUrl);
 
-        adminLoginPage.enterToEmailTextbox("hiuhiu@gmail.com");
-        adminLoginPage.enterToPasswordTextbox("hiuhiu@gmail.com");
+        adminLoginPage.enterToEmailTextbox(GlobalConstants.ADMIN_USERNAME);
+        adminLoginPage.enterToPasswordTextbox(GlobalConstants.ADMIN_PASSWORD);
         adminDashboardPage = adminLoginPage.clickLoginButton();
         Assert.assertTrue(adminDashboardPage.isPageLoadedSuccess(driver));
 

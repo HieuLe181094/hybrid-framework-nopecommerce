@@ -1,4 +1,4 @@
-package com.nopcommerce;
+package com.nopcommerce.users;
 
 import commons.BaseTest;
 import org.openqa.selenium.WebDriver;
@@ -7,11 +7,13 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import pageObjects.PageGenerator;
-import pageObjects.nopCommerce.*;
-import pageObjects.nopCommerce.sideBar.UserCustomerInforPageObject;
+import pageFactory.nopCommerce.CustomerInfoPageObject;
+import pageFactory.nopCommerce.HomePageObject;
+import pageFactory.nopCommerce.LoginPageObject;
+import pageFactory.nopCommerce.RegisterPageObject;
 
-public class Level_06_PageGenerator_III extends BaseTest {
+
+public class Level_05_Page_Factory extends BaseTest {
     @Parameters({"url","browser"})
     @BeforeClass
     public void beforeClass(String urlValue, String browserName) {
@@ -23,14 +25,14 @@ public class Level_06_PageGenerator_III extends BaseTest {
         companyName ="Twiyo";
         password = "gK3@*09`%NO";
 
-        homePage = PageGenerator.getHomePage(driver);
+        homePage = new HomePageObject(driver);
 
     }
 
     @Test
     public void TC_01_Register() {
         homePage.clickToRegisterLink();
-        registerPage = PageGenerator.getRegisterPage(driver);
+        registerPage = new RegisterPageObject(driver);
 
         registerPage.enterToFirstNameTextbox(firstName);
         registerPage.enterToLastNameTextbox(lastName);
@@ -42,11 +44,11 @@ public class Level_06_PageGenerator_III extends BaseTest {
 
         Assert.assertEquals(registerPage.getRegisterSuccessMessage(),"Your registration completed");
 
-        registerPage.clickToLogoutLinkAtUserSite(driver);
+        registerPage.clickToLogoutLink();
 
         // Về lại trang Home: từ page A qua page B
         // RegisterPage qua HomePage
-        homePage = PageGenerator.getHomePage(driver);
+        homePage = new HomePageObject(driver);
     }
 
     @Test
@@ -55,7 +57,7 @@ public class Level_06_PageGenerator_III extends BaseTest {
 
         // Từ page A qua page B
         // Từ Home qua Login
-        loginPage = PageGenerator.getLoginPage(driver);
+        loginPage = new LoginPageObject(driver);
 
         loginPage.enterToEmailTextbox(emailAddress);
         loginPage.enterToPasswordTextbox(password);
@@ -66,20 +68,21 @@ public class Level_06_PageGenerator_III extends BaseTest {
 
         // Từ page A qua lại page B
         // Tù Login về Home
-        homePage = PageGenerator.getHomePage(driver);
+        homePage = new HomePageObject(driver);
     }
 
     @Test
     public void TC_03_MyAccount() {
-        homePage.clickToMyAccountLinkAtUserSite(driver);
+        homePage.clickToMyAccountLink();
 
         // Từ page A qua page B
         // Từ Login về CustomerInfo
-        customerPage = PageGenerator.getCustomerInfoPage(driver);
+        customerPage = new CustomerInfoPageObject(driver);
 
         Assert.assertEquals(customerPage.getFirstNameTextboxValue(),firstName);
         Assert.assertEquals(customerPage.getLastNameTextboxValue(),lastName);
         Assert.assertEquals(customerPage.getEmailAddressTextboxValue(),emailAddress);
+
     }
 
 
@@ -90,10 +93,10 @@ public class Level_06_PageGenerator_III extends BaseTest {
     }
 
     WebDriver driver;
-    UserHomePageObject homePage;
-    UserLoginPageObject loginPage;
-    UserRegisterPageObject registerPage;
-    UserCustomerInforPageObject customerPage;
+    HomePageObject homePage;
+    LoginPageObject loginPage;
+    RegisterPageObject registerPage;
+    CustomerInfoPageObject customerPage;
     String firstName, lastName, emailAddress, companyName, password;
 
 }
