@@ -1,4 +1,4 @@
-package com.nopcommerce;
+package com.nopcommerce.users;
 
 import commons.BaseTest;
 
@@ -54,7 +54,7 @@ public class Level_20_Pattern_Object extends BaseTest {
 
         registerPage.clickButtonByText(driver,"Register");
 
-        Assert.assertEquals(registerPage.getRegisterSuccessMessage(),"Your registration completed");
+        verifyEquals(registerPage.getRegisterSuccessMessage(),"Your registration completed...");
 
         registerPage.clickToLogoutLinkAtUserSite(driver);
         homePage = PageGenerator.getPageInstance(UserHomePageObject.class,driver);
