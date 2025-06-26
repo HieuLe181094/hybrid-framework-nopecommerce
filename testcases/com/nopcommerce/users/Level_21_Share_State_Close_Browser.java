@@ -17,7 +17,7 @@ import pageObjects.nopCommerce.sideBar.RewardPointPageObject;
 import pageObjects.nopCommerce.sideBar.UserCustomerInforPageObject;
 
 
-public class Level_21_Share_State extends BaseTest {
+public class Level_21_Share_State_Close_Browser extends BaseTest {
 
     @Parameters({"urlUser","browser"})
     @BeforeClass
@@ -54,7 +54,7 @@ public class Level_21_Share_State extends BaseTest {
 
 
 
-    @AfterClass
+    @AfterClass(alwaysRun = true)
     public void afterClass() {
         closeBrowserDriver();
     }
