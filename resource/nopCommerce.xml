@@ -4,7 +4,6 @@
     
     <listeners>
         <listener class-name="commons.MethodListener"/>
-
     </listeners>
 
     <parameter name="urlUser" value="http://localhost/"/>
@@ -14,7 +13,7 @@
         <parameter name="browser" value="edge"/>
         <classes>
             <class name="com.nopcommerce.common.Login"/>
-            <class name="com.nopcommerce.users.Level_21_Share_State"/>
+            <class name="com.nopcommerce.users.Level_20_Pattern_Object_2"/>
         </classes>
     </test>
 
