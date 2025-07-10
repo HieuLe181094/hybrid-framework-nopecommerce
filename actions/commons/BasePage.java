@@ -12,6 +12,9 @@ import pageObjects.nopCommerce.*;
 import pageObjects.nopCommerce.sideBar.UserCustomerInforPageObject;
 import pageUIs.jQuery.HomePageUI;
 import pageUIs.nopCommerce.*;
+import pageUIs.orangeHRM.BasePagePIM_UP;
+import pageUIs.orangeHRM.pim.employee.AddNewPIM_UI;
+import pageUIs.orangeHRM.pim.employee.PersonalDetailsPIM_UI;
 
 import java.time.Duration;
 import java.util.List;
@@ -210,8 +213,6 @@ public class BasePage {
         return driver.findElements(getByLocator(castLocator(locator, restParam)));
     }
 
-
-
     public void clickToElement(WebDriver driver, String locator){
         getWebElement(driver, locator).click();
     }
@@ -220,10 +221,15 @@ public class BasePage {
         getWebElement(driver, castLocator(locator, restParam)).click();
     }
 
-
     public void sendkeyToElement(WebDriver driver, String locator, String valueToSend) {
-        // 1 element là thẻ input mà bị ẩn -> Lỗi trên Firefox
-        getWebElement(driver,locator).clear();
+        Keys key = null;
+        if (GlobalConstants.OS_NAME.startsWith("Windows")){
+            key = Keys.CONTROL;
+        } else {
+            key = Keys.COMMAND;
+        }
+        getWebElement(driver,locator).sendKeys(Keys.chord(Keys.CONTROL,"a",Keys.BACK_SPACE));
+        sleepInSecond(1);
         getWebElement(driver,locator).sendKeys(valueToSend);
     }
 
@@ -253,20 +259,35 @@ public class BasePage {
         return new Select(getWebElement(driver,locator)).isMultiple();
     }
 
-    public void selectItemCustomDropdown(WebDriver driver,String parentXpath, String childXpath,String textItem)  {
-        WebDriverWait explicitWait = new WebDriverWait(driver,Duration.ofSeconds(LONG_TIMEOUT));
-        explicitWait.until(ExpectedConditions.elementToBeClickable(getByLocator(parentXpath))).click();
-        sleepInSecond(2);
+    public void selectItemCustomDropdown(WebDriver driver, String parentLocator, String childLocator, String expectedItem)  {
+      getWebElement(driver, parentLocator).click();
+      sleepInSecond(2);
 
-        List<WebElement> allItems = waitForListElementPresence(driver,childXpath);
+      List<WebElement> allItems = new  WebDriverWait(driver, Duration.ofSeconds(15))
+              .until(ExpectedConditions.presenceOfAllElementsLocatedBy(getByLocator(childLocator)));
+      sleepInSecond(2);
 
-        for (WebElement item: allItems){
-            if (item.getText().equals(textItem)){
-                item.click();
-                break;
-            }
-        }
+      for (WebElement item: allItems) {
+          if (item.getText().trim().equals(expectedItem)){
+              item.click();
+              break;
+          }
+      }
     }
+
+//    public void selectItemCustomDropdown(WebDriver driver, String parentLocator, String childLocator, String textItem)  {
+//        WebDriverWait explicitWait = new WebDriverWait(driver,Duration.ofSeconds(LONG_TIMEOUT));
+//        explicitWait.until(ExpectedConditions.elementToBeClickable(getByLocator(parentLocator))).click();
+//        sleepInSecond(2);
+//
+//        List<WebElement> allItems = waitForListElementPresence(driver,childLocator);
+//        for (WebElement item: allItems){
+//            if (item.getText().equals(textItem)){
+//                item.click();
+//                break;
+//            }
+//        }
+//    }
 
     public void sleepInSecond(long timeInSecond)  {
         try {
@@ -283,8 +304,6 @@ public class BasePage {
     public String getElementText(WebDriver driver, String locator, String... restParam) {
         return getWebElement(driver, castLocator(locator, restParam)).getText();
     }
-
-
 
     public String getElementAttribute(WebDriver driver, String locator, String attributeName) {
         return getWebElement(driver,locator).getAttribute(attributeName);
@@ -306,8 +325,8 @@ public class BasePage {
         return Color.fromString(rgbValue).asHex().toUpperCase();
     }
 
-    public int getListElementSize(WebDriver driver, String locator) {
-        return getListWebElement(driver,locator).size();
+    public Dimension getElementSize(WebDriver driver, String locator){
+        return getWebElement(driver, locator).getSize();
     }
 
     public int getListElementSize(WebDriver driver, String locator, String restParam) {
@@ -349,8 +368,6 @@ public class BasePage {
 
         return getWebElement(driver, castLocator(locator)).isDisplayed();
     }
-
-
 
     public boolean isElementDisplayed(WebDriver driver, String locator, String... restParam) {
         return getWebElement(driver, castLocator(locator, restParam)).isDisplayed();
@@ -534,9 +551,9 @@ public class BasePage {
                 .until(ExpectedConditions.invisibilityOfElementLocated(getByLocator(castLocator(locator, restParam))));
     }
 
-    public boolean waitForListElementInvisible(WebDriver driver,String locator){
-        return new WebDriverWait(driver, Duration.ofSeconds(LONG_TIMEOUT))
-                .until(ExpectedConditions.invisibilityOfAllElements(getListWebElement(driver,locator)));
+    public boolean waitForListElementInvisible(WebDriver driver, String locator) {
+        return new WebDriverWait(driver, Duration.ofSeconds(GlobalConstants.LONG_TIMEOUT)).
+                until(ExpectedConditions.invisibilityOfAllElements(getListWebElement(driver, locator)));
     }
 
     public WebElement waitForElementClickable(WebDriver driver,String locator) {
@@ -686,6 +703,35 @@ public class BasePage {
     public boolean isNewletterCheckboxSelected(WebDriver driver, String checkboxID) {
         waitToElementSelected(driver, BasePageUI.CHECKBOX_BY_ID, checkboxID);
         return isElementSelected(driver, BasePageUI.CHECKBOX_BY_ID, checkboxID);
+    }
+
+    public void selectToDropdownByID(WebDriver driver, String dropdownID, String expectedItem) {
+        new Select(getWebElement(driver, castLocator(BasePageUI.DROPDOWN_BY_ID, dropdownID))).selectByVisibleText(expectedItem);
+    }
+
+    public String getAddressesInfoDisplayedByClass(WebDriver driver, String infoClass) {
+        waitForElementVisible(driver, BasePageUI.DYNAMIC_ADDRESSES_INFO_BY_CLASS,infoClass);
+        return getElementText(driver, BasePageUI.DYNAMIC_ADDRESSES_INFO_BY_CLASS,infoClass);
+    }
+
+    public String getAddressesInfoDisplayedByLabel(WebDriver driver, String infoLabel) {
+        waitForElementVisible(driver, BasePageUI.DYNAMIC_ADDRESSES_INFO_BY_LABEL, infoLabel);
+        return  getElementText(driver, BasePageUI.DYNAMIC_ADDRESSES_INFO_BY_LABEL, infoLabel);
+    }
+
+    // OrangeHRM
+    public boolean waitAllLoadingIconInvisible(WebDriver driver) {
+        return  waitForListElementInvisible(driver, BasePagePIM_UP.LOADING_ICON);
+    }
+
+    public boolean isSuccessMessageIsDisplayed(WebDriver driver) {
+        waitForElementVisible(driver, BasePagePIM_UP.SUCCESS_MESSAGE);
+        return isElementDisplayed(driver,BasePagePIM_UP.SUCCESS_MESSAGE);
+    }
+
+    public String getEmployeeID(WebDriver driver) {
+        waitForElementVisible(driver,BasePagePIM_UP.EMPLOYEE_ID_TEXTBOX);
+        return getElementAttribute(driver, BasePagePIM_UP.EMPLOYEE_ID_TEXTBOX,"value");
     }
 }
 
