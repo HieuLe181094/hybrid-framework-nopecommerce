@@ -22,6 +22,10 @@ public class BasePageUI {
     public static final String BUTTON_BY_ID = "Xpath=//button[text()='%s']";
     public static final String CHECKBOX_BY_ID = "Xpath=//input[@id='%s']";
     public static final String RADIO_BY_ID = "Xpath=//input[@id='%s']";
+    public static final String DROPDOWN_BY_ID = "Xpath=//select[@id='%s']";
+    public static final String DYNAMIC_ADDRESSES_INFO_BY_TEXT = "Xpath=//ul[@class='info']/li[contains(text(),'%s')]";
+    public static final String DYNAMIC_ADDRESSES_INFO_BY_LABEL = "Xpath=//ul[@class='info']/li/label[contains(text(),'%s')]";
+    public static final String DYNAMIC_ADDRESSES_INFO_BY_CLASS = "Xpath=//ul[@class='info']/li[contains(@class='%s']";
 
 
 }
