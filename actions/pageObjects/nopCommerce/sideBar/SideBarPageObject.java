@@ -63,4 +63,8 @@ public class SideBarPageObject extends BasePage {
         return PageGenerator.getPageInstance(OrderPageObject.class,driver);
     }
 
+    public String getNewAddressesSuccessMessage() {
+        waitForElementVisible(driver, SideBarPageUI.NEW_ADDRESSED_SUCCESS_MESSAGE);
+        return getElementText(driver, SideBarPageUI.NEW_ADDRESSED_SUCCESS_MESSAGE);
+    }
 }

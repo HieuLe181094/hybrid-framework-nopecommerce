@@ -89,7 +89,6 @@ public class Level_20_Pattern_Object extends BaseTest {
         Assert.assertEquals(customerPage.getTextboxValueByID(driver, "Company"),companyName);
 
         Assert.assertTrue(customerPage.isNewletterCheckboxSelected(driver, "Newsletter"));
-
     }
 
 

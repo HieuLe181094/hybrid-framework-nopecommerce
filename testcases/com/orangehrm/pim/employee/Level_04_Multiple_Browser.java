@@ -1,4 +1,4 @@
-package com.orangehrm.employee;
+package com.orangehrm.pim.employee;
 
 import commons.BaseTest;
 import org.openqa.selenium.WebDriver;
