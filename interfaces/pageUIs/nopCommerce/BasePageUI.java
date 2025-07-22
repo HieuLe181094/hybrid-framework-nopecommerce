@@ -27,5 +27,10 @@ public class BasePageUI {
     public static final String DYNAMIC_ADDRESSES_INFO_BY_LABEL = "Xpath=//ul[@class='info']/li/label[contains(text(),'%s')]";
     public static final String DYNAMIC_ADDRESSES_INFO_BY_CLASS = "Xpath=//ul[@class='info']/li[contains(@class='%s']";
 
+    //
+    public static final String FIREFOX_BUTTON_BY_TEXT = "Xpath=//button[text()='%s']";
+    public static final String CHROME_BUTTON_BY_TEXT = "Xpath=//button[text()='%s']";
+    public static final String EDGE_BUTTON_BY_TEXT = "Xpath=//button[text()='%s']";
+
 
 }

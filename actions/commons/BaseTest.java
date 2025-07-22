@@ -4,15 +4,28 @@ import org.apache.logging.log4j.Logger;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeDriverService;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.chromium.ChromiumDriverLogLevel;
 import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.edge.EdgeDriverService;
+import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.firefox.*;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.safari.SafariDriver;
+import org.openqa.selenium.safari.SafariOptions;
 import org.testng.Assert;
 import org.testng.Reporter;
 import org.testng.annotations.BeforeSuite;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -36,21 +49,56 @@ public class BaseTest {
     }
 
     // Dev Environment
-    protected WebDriver getBrowserDriver(String url, String browserName){
+    protected WebDriver getBrowserDriver(String url, String browserName) {
+
+        Path path = null;
+        File extensionFilePath = null;
+
         BrowserType browserType = BrowserType.valueOf(browserName.toUpperCase());
 
         switch (browserName){
             case "edge":
-                driver = new EdgeDriver();
+                EdgeOptions edgeOption = new EdgeOptions();
+                edgeOption.addArguments("--inprivate");
+                driver = new EdgeDriver(edgeOption);
                 break;
+
             case "chrome":
-                driver = new ChromeDriver();
+                ChromeOptions cOptions = new ChromeOptions();
+                cOptions.addArguments("--user-data-dir=C:\\Users\\Admin\\AppData\\Local\\Google\\Chrome\\User Data\\");
+                cOptions.addArguments("--profile-directory=Profile 4");
+                driver = new ChromeDriver(cOptions);
                 break;
+
+            case "coccoc":
+                ChromeOptions ccOptions = new ChromeOptions();
+                ccOptions.setBinary("C:\\Program Files\\CocCoc\\Browser\\Application\\browser.exe");
+                driver = new ChromeDriver(ccOptions);
+                break;
+
+            case "internetExplorer":
+                InternetExplorerOptions ieOptions = new InternetExplorerOptions();
+                ieOptions.destructivelyEnsureCleanSession();
+                ieOptions.ignoreZoomSettings();
+                ieOptions.introduceFlakinessByIgnoringSecurityDomains();
+                driver = new InternetExplorerDriver(ieOptions);
+                break;
+
             case "firefox":
-                driver = new FirefoxDriver();
+                FirefoxOptions fOptions = new FirefoxOptions();
+                FirefoxProfile ffProfile = new FirefoxProfile();
+                ffProfile.setPreference("browser.private.browsing.autostart", true);
+                ffProfile.setPreference("browser.privatebrowsing.autostart", true);
+                ffProfile.setAcceptUntrustedCertificates(true);
+                ffProfile.setAssumeUntrustedCertificateIssuer(false);
+                fOptions.setProfile(ffProfile);
+                fOptions.addArguments("-private");
+                driver = new FirefoxDriver(fOptions);
                 break;
+
             case "safari":
-                driver = new SafariDriver();
+                SafariOptions sOptions = new SafariOptions();
+                driver = new SafariDriver(sOptions);
                 break;
             default:
                 throw new IllegalArgumentException("Browser name is not valid");

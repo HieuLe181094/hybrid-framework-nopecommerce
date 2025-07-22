@@ -214,11 +214,21 @@ public class BasePage {
     }
 
     public void clickToElement(WebDriver driver, String locator){
-        getWebElement(driver, locator).click();
+        if (driver.toString().contains("InternetExplorer")){
+            clickToElementByJS(driver, locator);
+            sleepInSecond(2);
+        } else {
+            getWebElement(driver, locator);
+        }
     }
 
     public void clickToElement(WebDriver driver, String locator, String... restParam){
-        getWebElement(driver, castLocator(locator, restParam)).click();
+        if (driver.toString().contains("InternetExplorer")){
+            clickToElementByJS(driver, locator);
+            sleepInSecond(2);
+        } else {
+            getWebElement(driver, locator);
+        }
     }
 
     public void sendkeyToElement(WebDriver driver, String locator, String valueToSend) {
@@ -676,8 +686,17 @@ public class BasePage {
     }
 
     public void clickButtonByText(WebDriver driver,String buttonText) {
-        waitForElementClickable(driver, BasePageUI.BUTTON_BY_ID, buttonText);
-        clickToElement(driver, BasePageUI.BUTTON_BY_ID, buttonText);
+       String locator = null;
+       String browser = driver.toString();
+       if (browser.contains("ChromeDriver")){
+           locator = BasePageUI.CHROME_BUTTON_BY_TEXT;
+       } else if (browser.contains("FirefoxDriver")){
+           locator = BasePageUI.FIREFOX_BUTTON_BY_TEXT;
+       } else {
+           locator = BasePageUI.EDGE_BUTTON_BY_TEXT;
+       }
+       waitForElementClickable(driver, locator, buttonText);
+       clickToElement(driver, locator, buttonText);
     }
 
     public void clickToRadioByID(WebDriver driver, String radioID) {
