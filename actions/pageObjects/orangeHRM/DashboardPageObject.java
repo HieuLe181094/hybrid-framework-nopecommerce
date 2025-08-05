@@ -16,7 +16,7 @@ public class DashboardPageObject extends BasePage {
 
   public EmployeeListPO clickToPIMPage() {
     waitForElementVisible(driver, DashboardPagePIM_UI.PIM_LINK);
-    clickToElement(driver,DashboardPagePIM_UI.PIM_LINK);
+    clickToElement(driver, DashboardPagePIM_UI.PIM_LINK);
     waitAllLoadingIconInvisible(driver);
     return PageGenerator.getEmployeeListPage(driver);
   }

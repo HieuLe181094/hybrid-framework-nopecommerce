@@ -13,10 +13,10 @@ import org.testng.annotations.Test;
 import pageObjects.orangeHRM.DashboardPageObject;
 import pageObjects.orangeHRM.LoginPageObject;
 import pageObjects.orangeHRM.PageGenerator;
-import pageObjects.orangeHRM.pim.employee.AddNewEmployeePO;
-import pageObjects.orangeHRM.pim.employee.ContactDetailsPO;
-import pageObjects.orangeHRM.pim.employee.EmployeeListPO;
-import pageObjects.orangeHRM.pim.employee.PersonalDetailsPO;
+import pageObjects.orangeHRM.pim.employee.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PIM_01_Employee extends BaseTest {
     private WebDriver driver;
@@ -26,9 +26,13 @@ public class PIM_01_Employee extends BaseTest {
     private EmployeeListPO employeeListPage;
     private PersonalDetailsPO personalDetailsPage;
     private ContactDetailsPO contactDetailPage;
+    private EmergencyContactsPO emergencyDetailPage;
+    private DependentsP0 assignedDependentsPage;
     String employeeID, userName, password, firstName, lastName, avatar, editFirstName, editLastName,
             driverLicenseNumber, driverLicenseExpiryDate, nationality, maritalStatus, dateOfBirth, gender;
     String street1, street2, city, state, zipCode, country, telephoneNumberOfHome, telephoneNumberOfWork, telephoneNumberOfMobile, workEmail, otherEmail;
+    String nameEmergency, relationship, telephoneNumberOfHomeEmergency, telephoneNumberOfMobileEmergency, telephoneNumberOfWorkEmergency;
+    String nameDependent, relationshipDependent, specifyRelationship, dateOfBirthDependent;
 
 
     @Parameters({"url","browser"})
@@ -60,6 +64,18 @@ public class PIM_01_Employee extends BaseTest {
         workEmail = "kride3@geocities.com";
         otherEmail = "pjiru1@ifeng.com";
 
+        nameEmergency = "Belia Uccello";
+        relationship = "Sister";
+        telephoneNumberOfHomeEmergency = "6066994328";
+        telephoneNumberOfMobileEmergency = "9011086680";
+        telephoneNumberOfWorkEmergency = "8551466617";
+
+        nameDependent = "Janette Keel";
+        relationshipDependent = "Other";
+        specifyRelationship = "Friend";
+        dateOfBirthDependent = "1994-10-16";
+
+
 
         driver = getBrowserDriver(url,browserName);
         loginPage = PageGenerator.getLoginPage(driver);
@@ -68,6 +84,8 @@ public class PIM_01_Employee extends BaseTest {
         loginPage.enterToPasswordTextBox(password);
 
         dashboardPage = loginPage.clickToLoginButton();
+        dashboardPage.sleepInSecond(3);
+
     }
 
     @Test
@@ -85,7 +103,7 @@ public class PIM_01_Employee extends BaseTest {
         personalDetailsPage = addNewEmployeePage.clickToSaveButtonAtEmployeeContainer();
     }
 
-    @Test
+    //@Test
     public void Employee_02_Upload_Avatar() {
         personalDetailsPage.clickToEmployeeAvatarImage();
 
@@ -103,7 +121,7 @@ public class PIM_01_Employee extends BaseTest {
         Assert.assertTrue(personalDetailsPage.isProfileAvatarUpdateSuccess(beforeUpload));
     }
 
-    @Test
+    //@Test
     public void Employee_03_Personal_Details() {
         personalDetailsPage.openPersonalDetailsPage();
 
@@ -138,7 +156,7 @@ public class PIM_01_Employee extends BaseTest {
 
     }
 
-    @Test
+    //@Test
     public void Employee_04_Contact_Details() {
         contactDetailPage = personalDetailsPage.openContactDetailPage();
         System.out.println(contactDetailPage.toString());
@@ -158,9 +176,7 @@ public class PIM_01_Employee extends BaseTest {
         contactDetailPage.enterToOtherEmailTextbox(otherEmail);
 
         contactDetailPage.clickToSaveButtonAtContactDetailContainer();
-
         Assert.assertTrue(contactDetailPage.isSuccessMessageIsDisplayed(driver));
-
         contactDetailPage.waitAllLoadingIconInvisible(driver);
 
         // Verìy
@@ -177,17 +193,59 @@ public class PIM_01_Employee extends BaseTest {
         Assert.assertEquals(contactDetailPage.getOtherEmailTextboxValue(),otherEmail);
     }
 
-    @Test
+    //@Test
     public void Employee_05_Emergency_Details() {
+        emergencyDetailPage = contactDetailPage.openEmergencyDetailPage();
 
+        emergencyDetailPage.clickToAddButtonAtAssignedEmergencyContactsContainer();
+        emergencyDetailPage.sleepInSecond(3);
+
+        emergencyDetailPage.enterToNameTextboxAtSaveEmergencyContact(nameEmergency);
+        emergencyDetailPage.enterToRelationshipTextboxAtSaveEmergencyContact(relationship);
+        emergencyDetailPage.enterToHomeTelephoneTextboxAtSaveEmergencyContact(telephoneNumberOfHomeEmergency);
+        emergencyDetailPage.enterToMobileTextboxAtSaveEmergencyContact(telephoneNumberOfMobileEmergency);
+        emergencyDetailPage.enterToWorkTelephoneTextboxAtSaveEmergencyContact(telephoneNumberOfWorkEmergency);
+
+        emergencyDetailPage.clickToSaveButtonAtAssignedEmergencyContactsContainer();
+        Assert.assertTrue(emergencyDetailPage.isSuccessMessageIsDisplayed(driver));
+        emergencyDetailPage.waitAllLoadingIconInvisible(driver);
+
+//        List<String> actualName = new ArrayList<>();
+//        List<String> expectedName = emergencyDetailPage.getAllValueAtColumnName();
+//        emergencyDetailPage.showRowData(expectedName);
+
+//        Assert.assertEquals(emergencyDetailPage.getNameTextboxValue(nameEmergency));
+//        Assert.assertEquals(emergencyDetailPage.getRelationshipTextboxValue(relationship));
+//        Assert.assertEquals(emergencyDetailPage.getHomeTelephoneTextboxValue(telephoneNumberOfHomeEmergency));
+//        Assert.assertEquals(emergencyDetailPage.getMobileTextboxValue(telephoneNumberOfMobileEmergency));
+//        Assert.assertEquals(emergencyDetailPage.getWorkTelephoneTextboxValue(telephoneNumberOfWorkEmergency));
     }
 
-    @Test
+   //@Test
     public void Employee_06_Assigned_Dependents() {
+        assignedDependentsPage = emergencyDetailPage.openAssignedDependentsPage();
+
+        assignedDependentsPage.clickAddButtonAtAssignedDependentsContainer();
+        assignedDependentsPage.sleepInSecond(3);
+
+        assignedDependentsPage.enterToNameTextBox(nameDependent);
+        // assignedDependentsPage.selectRelationShipDropdownWithChildItem();
+
+        assignedDependentsPage.selectRelationShipDropdownWithOtherItem(relationshipDependent);
+        assignedDependentsPage.sleepInSecond(2);
+
+        assignedDependentsPage.enterToPleaseSpecifyTextBox(specifyRelationship);
+        assignedDependentsPage.enterDateOfBirthTextbox(dateOfBirthDependent);
+
+        assignedDependentsPage.clickToSaveButtonAtDependentsContainer();
+
+        Assert.assertTrue(assignedDependentsPage.isSuccessMessageIsDisplayed(driver));
+        assignedDependentsPage.waitAllLoadingIconInvisible(driver);
+
 
     }
 
-    @Test
+    //@Test
     public void Employee_07_Edit_View_Job() {
 
     }

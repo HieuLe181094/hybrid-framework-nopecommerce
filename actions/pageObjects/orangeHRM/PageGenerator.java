@@ -47,6 +47,9 @@ public class PageGenerator {
     public static EmergencyContactsPO getEmergencyContactsPage(WebDriver driver){
         return new EmergencyContactsPO(driver);
     }
+    public static DependentsP0 getDependentsPage(WebDriver driver){
+        return new DependentsP0(driver);
+    }
 
     public static EmployeeListPO getEmployeeListPage(WebDriver driver){
         return new EmployeeListPO(driver);

@@ -22,7 +22,7 @@ public class LoginPageObject extends BasePage {
     }
 
     public DashboardPageObject clickToLoginButton() {
-        waitForElementVisible(driver, LoginPagePIM_UI.LOGIN_BUTTON);
+        waitForElementClickable(driver, LoginPagePIM_UI.LOGIN_BUTTON);
         clickToElement(driver, LoginPagePIM_UI.LOGIN_BUTTON);
         waitAllLoadingIconInvisible(driver);
         return PageGenerator.getPageInstance(DashboardPageObject.class,driver);
