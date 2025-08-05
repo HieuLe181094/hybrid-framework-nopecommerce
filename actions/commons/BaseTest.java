@@ -65,8 +65,6 @@ public class BaseTest {
 
             case "chrome":
                 ChromeOptions cOptions = new ChromeOptions();
-                cOptions.addArguments("--user-data-dir=C:\\Users\\Admin\\AppData\\Local\\Google\\Chrome\\User Data\\");
-                cOptions.addArguments("--profile-directory=Profile 4");
                 driver = new ChromeDriver(cOptions);
                 break;
 
@@ -86,13 +84,6 @@ public class BaseTest {
 
             case "firefox":
                 FirefoxOptions fOptions = new FirefoxOptions();
-                FirefoxProfile ffProfile = new FirefoxProfile();
-                ffProfile.setPreference("browser.private.browsing.autostart", true);
-                ffProfile.setPreference("browser.privatebrowsing.autostart", true);
-                ffProfile.setAcceptUntrustedCertificates(true);
-                ffProfile.setAssumeUntrustedCertificateIssuer(false);
-                fOptions.setProfile(ffProfile);
-                fOptions.addArguments("-private");
                 driver = new FirefoxDriver(fOptions);
                 break;
 
