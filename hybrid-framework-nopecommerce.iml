@@ -18,5 +18,7 @@
     <orderEntry type="library" name="extent5" level="project" />
     <orderEntry type="library" name="allure" level="project" />
     <orderEntry type="library" name="Jira" level="project" />
+    <orderEntry type="library" name="commons-lang3-3.5" level="project" />
+    <orderEntry type="library" name="datafaker-2.4.4" level="project" />
   </component>
 </module>

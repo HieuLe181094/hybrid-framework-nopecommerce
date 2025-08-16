@@ -26,7 +26,7 @@
     <test name="Run on Firefox browser" >
         <parameter name="browser" value="firefox"/>
         <classes>
-            <class name="com.nopcommerce.users.Level_22_Browser_Config"/>
+            <class name="com.nopcommerce.users.Level_24_Data_Faker_NET"/>
         </classes>
     </test>
 
