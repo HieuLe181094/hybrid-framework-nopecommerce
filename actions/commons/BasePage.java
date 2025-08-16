@@ -218,7 +218,7 @@ public class BasePage {
             clickToElementByJS(driver, locator);
             sleepInSecond(2);
         } else {
-            getWebElement(driver, locator);
+            getWebElement(driver, locator).click();
         }
     }
 
@@ -227,7 +227,7 @@ public class BasePage {
             clickToElementByJS(driver, locator);
             sleepInSecond(2);
         } else {
-            getWebElement(driver, locator);
+            getWebElement(driver, locator).click();
         }
     }
 
@@ -686,17 +686,25 @@ public class BasePage {
     }
 
     public void clickButtonByText(WebDriver driver,String buttonText) {
-       String locator = null;
-       String browser = driver.toString();
-       if (browser.contains("ChromeDriver")){
-           locator = BasePageUI.CHROME_BUTTON_BY_TEXT;
-       } else if (browser.contains("FirefoxDriver")){
-           locator = BasePageUI.FIREFOX_BUTTON_BY_TEXT;
-       } else {
-           locator = BasePageUI.EDGE_BUTTON_BY_TEXT;
-       }
-       waitForElementClickable(driver, locator, buttonText);
-       clickToElement(driver, locator, buttonText);
+        String locator;
+
+        // lấy đúng locator theo browser
+        String browser = driver.toString();
+        if (browser.contains("ChromeDriver")) {
+            locator = BasePageUI.CHROME_BUTTON_BY_TEXT;
+        } else if (browser.contains("FirefoxDriver")) {
+            locator = BasePageUI.FIREFOX_BUTTON_BY_TEXT;
+        } else {
+            locator = BasePageUI.EDGE_BUTTON_BY_TEXT;
+        }
+
+        // format locator với text thực tế
+        String finalLocator = String.format(locator, buttonText);
+
+        System.out.println("Final locator: " + finalLocator);
+
+        waitForElementClickable(driver, finalLocator);
+        clickToElement(driver, finalLocator);
     }
 
     public void clickToRadioByID(WebDriver driver, String radioID) {
