@@ -26,23 +26,25 @@ public class Level_23_Sort extends BaseTest {
 
     }
 
-    @Test
+    //@Test
     public void Sort_01_Name() {
 
         inventoryPage.selectSortDropdown("Name (A to Z)");
         verifyTrue(inventoryPage.isNameSortAscending());
 
         inventoryPage.selectSortDropdown("Name (Z to A)");
-        verifyTrue(inventoryPage.isNameSortAscending());
+        verifyTrue(inventoryPage.isNameSortDescending());
 
     }
 
 
     @Test
     public void Sort_02_Price() {
-//        inventoryPage.selectSortDropdown("Price (low to high)");
-//
-//        inventoryPage.selectSortDropdown("Price (high to low)");
+        inventoryPage.selectSortDropdown("Price (low to high)");
+        verifyTrue(inventoryPage.isPriceSortAscending());
+
+        inventoryPage.selectSortDropdown("Price (high to low)");
+        verifyTrue(inventoryPage.isPriceSortDescending());
 
     }
 

@@ -18,8 +18,8 @@ public class InventoryPageObject extends BasePage {
 
     public void selectSortDropdown(String sortItem) {
         waitForElementClickable(driver, InventoryPageUI.SORT_DROPDOWN);
-       selectItemDropdown(driver, InventoryPageUI.PRODUCT_NAME, sortItem);
-       sleepInSecond(3);
+        selectItemDropdown(driver, InventoryPageUI.SORT_DROPDOWN, sortItem);
+        sleepInSecond(3);
     }
 
     // Java 7 trở xuống
@@ -50,4 +50,54 @@ public class InventoryPageObject extends BasePage {
         // Kiểm tra 2 list bằng nhau
         return productNameTextClone.equals(productNameText);
     }
+
+    public boolean isNameSortDescending() {
+        List<WebElement> productNameElement = getListWebElement(driver, InventoryPageUI.PRODUCT_NAME);
+        List<String> productNameText = new ArrayList<String>();
+
+        for (WebElement productName: productNameElement){
+            productNameText.add(productName.getText());
+        }
+
+        List<String> productNameTextClone = new ArrayList<>(productNameText);
+        Collections.sort(productNameTextClone);
+        Collections.reverse(productNameTextClone);
+
+        return productNameTextClone.equals(productNameText);
+    }
+
+
+    public boolean isPriceSortAscending() {
+        List<WebElement> productPriceElement = getListWebElement(driver, InventoryPageUI.PRODUCT_PRICE);
+        List<Float> productPriceText = new ArrayList<Float>();
+
+        System.out.println("Trước khi SORT");
+        for (WebElement productPrice: productPriceElement){
+            System.out.println(productPrice.getText());
+            productPriceText.add(Float.valueOf(productPrice.getText().replace("$", "")));
+        }
+
+        List<Float> productPriceTextClone = new ArrayList<Float>(productPriceText);
+        Collections.sort(productPriceTextClone);
+        for (Float price: productPriceTextClone){System.out.println(price); }
+
+        return productPriceTextClone.equals(productPriceText);
+    }
+
+    public boolean isPriceSortDescending() {
+        List<WebElement> productPriceElement = getListWebElement(driver, InventoryPageUI.PRODUCT_PRICE);
+        List<Float> productPriceText = new ArrayList<Float>();
+
+        for (WebElement productPrice: productPriceElement){
+            System.out.println(productPrice.getText());
+            productPriceText.add(Float.valueOf(productPrice.getText().replace("$", "")));
+        }
+
+        List<Float> productPriceTextClone = new ArrayList<Float>(productPriceText);
+        Collections.sort(productPriceTextClone);
+        Collections.reverse(productPriceTextClone);
+
+        return productPriceTextClone.equals(productPriceText);
+    }
 }
+

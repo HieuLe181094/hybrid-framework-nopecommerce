@@ -103,7 +103,7 @@ public class PIM_01_Employee extends BaseTest {
         personalDetailsPage = addNewEmployeePage.clickToSaveButtonAtEmployeeContainer();
     }
 
-    //@Test
+    @Test
     public void Employee_02_Upload_Avatar() {
         personalDetailsPage.clickToEmployeeAvatarImage();
 
@@ -121,7 +121,7 @@ public class PIM_01_Employee extends BaseTest {
         Assert.assertTrue(personalDetailsPage.isProfileAvatarUpdateSuccess(beforeUpload));
     }
 
-    //@Test
+    @Test
     public void Employee_03_Personal_Details() {
         personalDetailsPage.openPersonalDetailsPage();
 
@@ -156,7 +156,7 @@ public class PIM_01_Employee extends BaseTest {
 
     }
 
-    //@Test
+    @Test
     public void Employee_04_Contact_Details() {
         contactDetailPage = personalDetailsPage.openContactDetailPage();
         System.out.println(contactDetailPage.toString());
@@ -193,7 +193,7 @@ public class PIM_01_Employee extends BaseTest {
         Assert.assertEquals(contactDetailPage.getOtherEmailTextboxValue(),otherEmail);
     }
 
-    //@Test
+    @Test
     public void Employee_05_Emergency_Details() {
         emergencyDetailPage = contactDetailPage.openEmergencyDetailPage();
 
@@ -221,7 +221,7 @@ public class PIM_01_Employee extends BaseTest {
 //        Assert.assertEquals(emergencyDetailPage.getWorkTelephoneTextboxValue(telephoneNumberOfWorkEmergency));
     }
 
-   //@Test
+   @Test
     public void Employee_06_Assigned_Dependents() {
         assignedDependentsPage = emergencyDetailPage.openAssignedDependentsPage();
 
@@ -245,7 +245,7 @@ public class PIM_01_Employee extends BaseTest {
 
     }
 
-    //@Test
+    @Test
     public void Employee_07_Edit_View_Job() {
 
     }
