@@ -5,6 +5,7 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import pageUIs.nopCommerce.BasePageUI;
 import pageUIs.nopCommerce.UserRegisterPageUI;
+import pojo.UserInfo;
 
 public class UserRegisterPageObject extends BasePage {
     private WebDriver driver;
@@ -67,4 +68,12 @@ public class UserRegisterPageObject extends BasePage {
     }
 
 
+    public void enterToRegisterForm(UserInfo userInfo) {
+        enterToFirstNameTextbox(userInfo.getFirstName());
+        enterToLastNameTextbox(userInfo.getLastName());
+        enterToEmailTextbox(userInfo.getEmailAddress());
+        enterToCompanyNameTextbox(userInfo.getCompanyName());
+        enterToPasswordTextbox(userInfo.getPassword());
+        enterToConformPasswordTextbox(userInfo.getPassword());
+    }
 }

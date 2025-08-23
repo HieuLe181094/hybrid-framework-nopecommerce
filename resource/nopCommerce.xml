@@ -13,7 +13,7 @@
     <test name="Run on Firefox browser" >
         <parameter name="browser" value="firefox"/>
         <classes>
-            <class name="com.nopcommerce.users.Level_25_Manage_Data_03"/>
+            <class name="com.nopcommerce.users.Level_25_Manage_Data_06_Excel"/>
         </classes>
     </test>
 

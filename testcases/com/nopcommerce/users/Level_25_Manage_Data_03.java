@@ -1,7 +1,7 @@
 package com.nopcommerce.users;
 
 import commons.BaseTest;
-import data.Users;
+import data.staticVar.Users;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
