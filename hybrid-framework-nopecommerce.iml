@@ -24,5 +24,6 @@
     <orderEntry type="library" name="libExtent5" level="project" />
     <orderEntry type="library" name="jackson" level="project" />
     <orderEntry type="library" name="POI" level="project" />
+    <orderEntry type="library" name="Owners" level="project" />
   </component>
 </module>

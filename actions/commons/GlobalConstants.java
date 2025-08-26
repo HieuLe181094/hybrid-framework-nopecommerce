@@ -40,7 +40,7 @@ public class GlobalConstants {
 
     // Data Test/ Environment
     public static final String DATA_TEST_PATH = PROJECT_PATH + SEPARATOR + "testData" + SEPARATOR;
-    public static final String ENVIRONMENT_CONFIG_PATH = PROJECT_PATH + SEPARATOR + "environmentConfig" + SEPARATOR;
+    public static final String ENVIRONMENT_CONFIG_PATH = PROJECT_PATH + SEPARATOR + "envConfig" + SEPARATOR;
 
     public static final String JIRA_SITE_URL = "https://lengoduchieu-auto.atlassian.net/";
     public static final String JIRA_USERNAME = "lengoduchieu@gmail.com";

@@ -1,4 +1,5 @@
 package commons;
+import keywords.BrowserList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -23,12 +24,14 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.Duration;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+import static commons.BrowserType.COCCOC;
 
 
 public class BaseTest {
@@ -95,10 +98,28 @@ public class BaseTest {
                 throw new IllegalArgumentException("Browser name is not valid");
         }
 
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(GlobalConstants.LONG_TIMEOUT));
         driver.manage().window().maximize();
         driver.get(url);
         return driver;
+    }
+
+    private String getUrlByEnvironment(String environmentName){
+        String url;
+        switch (environmentName) {
+            case "dev":
+                url = "https://demo.nopcommerce.com/";
+                break;
+            case "testing":
+                url = "https://testing.nopcommerce.com/";
+                break;
+            case "staging":
+                url = "https://staging.nopcommerce.com/";
+                break;
+            default:
+                throw new RuntimeException("Environment name is not valid");
+        }
+        return url;
     }
 
     protected void closeBrowserDriver() {

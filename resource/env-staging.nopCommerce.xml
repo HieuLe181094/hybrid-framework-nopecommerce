@@ -6,8 +6,10 @@
         <listener class-name="commons.MethodListener"/>
     </listeners>
 
-    <parameter name="environment" value="dev"/>
-
+    <parameter name="url" value="https://staging.nopcommerce.com/"/>
+    <parameter name="username" value="Admin"/>
+    <parameter name="password" value="Testing123456"/>
+    <parameter name="db.url" value="https://192.168 l 1.1"/>
 
     <test name="Run on Firefox browser" >
         <parameter name="browser" value="firefox"/>

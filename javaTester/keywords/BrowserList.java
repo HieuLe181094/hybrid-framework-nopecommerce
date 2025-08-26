@@ -1,5 +1,5 @@
 package keywords;
 
 public enum BrowserList {
-    CHROME, EDGE, FIREFOX, SAFARI;
+    CHROME, EDGE, FIREFOX, SAFARI, INTERNETEXPLORER;
 }
