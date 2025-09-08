@@ -37,14 +37,14 @@ public class EmployeeTabs extends BasePage {
 
     public EmergencyContactsPO openEmergencyDetailPage() {
         waitForElementClickable(driver, EmployeeTabsPIM_UI.EMERGENCY_CONTACTS_PAGE);
-        clickToElement(driver, EmployeeTabsPIM_UI.EMERGENCY_CONTACTS_PAGE);
+        clickToElementByJS(driver, EmployeeTabsPIM_UI.EMERGENCY_CONTACTS_PAGE);
         waitAllLoadingIconInvisible(driver);
         return PageGenerator.getEmergencyContactsPage(driver);
     }
 
     public DependentsP0 openAssignedDependentsPage() {
         waitForElementClickable(driver, EmployeeTabsPIM_UI.DEPENDENTS_PAGE);
-        clickToElement(driver, EmployeeTabsPIM_UI.DEPENDENTS_PAGE);
+        clickToElementByJS(driver, EmployeeTabsPIM_UI.DEPENDENTS_PAGE);
         waitAllLoadingIconInvisible(driver);
         return PageGenerator.getDependentsPage(driver);
     }

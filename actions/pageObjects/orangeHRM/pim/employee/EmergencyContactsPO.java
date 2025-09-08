@@ -1,5 +1,6 @@
 package pageObjects.orangeHRM.pim.employee;
 
+import dataOrangeHRM.EmployeeInfor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import pageUIs.jQuery.HomePageUI;
@@ -52,11 +53,6 @@ public class EmergencyContactsPO extends EmployeeTabs {
     }
 
 
-
-
-
-
-
     public String getNameTextboxValue() {
         return null;
     }
@@ -75,6 +71,14 @@ public class EmergencyContactsPO extends EmployeeTabs {
 
     public String getWorkTelephoneTextboxValue() {
         return null;
+    }
+
+    public void enterToEmergencyDetailsForm(EmployeeInfor employeeInfor) {
+        enterToNameTextboxAtSaveEmergencyContact(employeeInfor.getNameEmergency());
+        enterToRelationshipTextboxAtSaveEmergencyContact(employeeInfor.getRelationship());
+        enterToHomeTelephoneTextboxAtSaveEmergencyContact(employeeInfor.getTelephoneNumberOfHomeEmergency());
+        enterToMobileTextboxAtSaveEmergencyContact(employeeInfor.getTelephoneNumberOfMobileEmergency());
+        enterToWorkTelephoneTextboxAtSaveEmergencyContact(employeeInfor.getTelephoneNumberOfWorkEmergency());
     }
 
 

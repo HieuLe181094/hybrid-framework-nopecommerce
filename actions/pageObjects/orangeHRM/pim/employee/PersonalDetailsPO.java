@@ -1,6 +1,7 @@
 package pageObjects.orangeHRM.pim.employee;
 
 import commons.BasePage;
+import dataOrangeHRM.EmployeeInfor;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
@@ -127,4 +128,14 @@ public class PersonalDetailsPO extends EmployeeTabs {
         return isElementSelected(driver, PersonalDetailsPIM_UI.GENDER_RADIO_BUTTON, gender);
     }
 
+    public void enterToDetailsPageForm(EmployeeInfor employeeInfor) {
+        enterToFirstNameTextBox(employeeInfor.getEditFirstName());
+        enterToLastNameTextBox(employeeInfor.getEditLastName());
+        enterToDriverLicenseTextbox(employeeInfor.getDriverLicenseNumber());
+        enterToLicenseDateTextbox(employeeInfor.getDriverLicenseExpiryDate());
+        selectNationalityDropdown(employeeInfor.getNationality());
+        selectMaritalStatusDropdown(employeeInfor.getMaritalStatus());
+        enterDateOfBirthTextBox(employeeInfor.getDateOfBirth());
+        selectGenderFemaleRadioButton(employeeInfor.getGender());
+    }
 }

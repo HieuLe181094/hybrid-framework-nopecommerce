@@ -2,6 +2,7 @@ package pageObjects.orangeHRM.pim.employee;
 
 import commons.BasePage;
 import commons.BaseTest;
+import dataOrangeHRM.EmployeeInfor;
 import org.openqa.selenium.WebDriver;
 import pageUIs.orangeHRM.pim.employee.ContactDetailsPIM_UI;
 
@@ -126,5 +127,20 @@ public class ContactDetailsPO extends EmployeeTabs {
     public  String getOtherEmailTextboxValue() {
         waitForElementVisible(driver, ContactDetailsPIM_UI.OTHER_EMAIL_TEXTBOX);
         return getElementAttribute(driver, ContactDetailsPIM_UI.OTHER_EMAIL_TEXTBOX, "value");
+    }
+
+
+    public void enterToContactDetailsForm(EmployeeInfor employeeInfor) {
+        enterToStreet1Textbox(employeeInfor.getStreet1());
+        enterToStreet2Textbox(employeeInfor.getStreet2());
+        enterToCityTextbox(employeeInfor.getCity());
+        enterToStateTextbox(employeeInfor.getState());
+        enterToZipCodeTextbox(employeeInfor.getZipCode());
+        selectCountryDropdown(employeeInfor.getCountry());
+        enterToTelephoneNumberOfHomeTextbox(employeeInfor.getTelephoneNumberOfHome());
+        enterToTelephoneNumberOfMobileTextbox(employeeInfor.getTelephoneNumberOfMobile());
+        enterToTelephoneNumberOfWorkTextbox(employeeInfor.getTelephoneNumberOfWork());
+        enterToWorkEmailTextbox(employeeInfor.getWorkEmail());
+        enterToOtherEmailTextbox(employeeInfor.getOtherEmail());
     }
 }

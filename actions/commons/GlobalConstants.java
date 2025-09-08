@@ -47,4 +47,8 @@ public class GlobalConstants {
     public static final String ATLASSIAN_API_TOKEN = System.getenv("ATLASSIAN_API_TOKEN");
     public static final String JIRA_PROJECT_KEY ="SCRUM";
 
+    // Admin User/ Pass - ORANGEHRM
+    public static final String ADMIN_USERNAME_ORANGEHRM = "HieuLND";
+    public static final String ADMIN_PASSWORD_ORANGEHRM = "99*10bsFiOXrmERLTO";
+
 }
