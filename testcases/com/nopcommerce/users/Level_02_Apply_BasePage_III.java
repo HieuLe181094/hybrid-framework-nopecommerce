@@ -19,6 +19,7 @@ import pageObjects.nopCommerce.sideBar.OrderPageObject;
 import pageObjects.nopCommerce.sideBar.RewardPointPageObject;
 import pageObjects.nopCommerce.sideBar.UserCustomerInforPageObject;
 
+import java.time.Duration;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -35,7 +36,7 @@ public class Level_02_Apply_BasePage_III extends BasePage {
 
 
 
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
         openPageUrl(driver,"http://localhost/");
 
     }

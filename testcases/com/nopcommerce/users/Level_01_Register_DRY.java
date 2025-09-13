@@ -8,6 +8,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import java.time.Duration;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -20,7 +21,7 @@ public class Level_01_Register_DRY {
     public void beforeClass() {
         driver = new FirefoxDriver();
         emailAddress = "afc" + generateFakeNumber() + "@mail.vn";
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
         driver.get("http://localhost/");
     }
 
