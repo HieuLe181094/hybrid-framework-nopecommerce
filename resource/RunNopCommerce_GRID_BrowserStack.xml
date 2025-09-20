@@ -1,0 +1,42 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="Nopcommerce UI Automation" verbose="1" parallel="tests" thread-count="2" >
+
+    <listeners>
+        <listener class-name="commons.MethodListener"/>
+    </listeners>
+
+    <parameter name="environment" value="dev"/>
+
+    <test name="Run on Chrome browser - Windows 11" >
+        <parameter name="osName" value="windows"/>
+        <parameter name="osVersion" value="11"/>
+        <parameter name="browserName" value="chrome"/>
+        <parameter name="browserVersion" value="140"/>
+        <classes>
+            <class name="com.nopcommerce.users.Level_28_Cloud_BrowserStack"/>
+        </classes>
+    </test>
+
+    <test name="Run on Edge browser - Windows 11" >
+        <parameter name="osName" value="windows"/>
+        <parameter name="osVersion" value="11"/>
+        <parameter name="browserName" value="edge"/>
+        <parameter name="browserVersion" value="140"/>
+        <classes>
+            <class name="com.nopcommerce.users.Level_28_Cloud_BrowserStack"/>
+        </classes>
+    </test>
+
+    <test name="Run on SAFARI - MAC Sequoia" >
+        <parameter name="osName" value="OS X"/>
+        <parameter name="osVersion" value="Sequoia"/>
+        <parameter name="browserName" value="Safari"/>
+        <parameter name="browserVersion" value="18.4"/>
+        <classes>
+            <class name="com.nopcommerce.users.Level_28_Cloud_BrowserStack"/>
+        </classes>
+    </test>
+
+
+</suite>
