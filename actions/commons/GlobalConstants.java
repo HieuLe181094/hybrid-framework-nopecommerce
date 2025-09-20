@@ -51,4 +51,26 @@ public class GlobalConstants {
     public static final String ADMIN_USERNAME_ORANGEHRM = "HieuLND";
     public static final String ADMIN_PASSWORD_ORANGEHRM = "99*10bsFiOXrmERLTO";
 
+    // BrowserStack
+    public static final String BROWSER_STACK_USERNAME = "hieulnd_XN5nSG";
+    public static final String BROWSER_STACK_AUTOMATE_KEY = "TuaaWsixjYgzRypkrKBA";
+    public static final String BROWSER_STACK_URL = "https://" + BROWSER_STACK_USERNAME + ":" + BROWSER_STACK_AUTOMATE_KEY + "@hub.browserstack.com/wd/hub";
+
+    // SauceLab
+    public static final String SAUCE_USERNAME = "oauth-lengoduchieu-ce5e9";
+    public static final String SAUCE_AUTOMATE_KEY = "5338bfe7-c0c0-4e54-805a-347496c9be03";
+    public static final String SAUCE_URL = "https://" + SAUCE_USERNAME + ":" + SAUCE_AUTOMATE_KEY + "@ondemand.eu-central-1.saucelabs.com:443/wd/hub";
+
+    // Bitbar
+    public static final String BITBAR_AUTOMATE_KEY = "XMUHh2sjQJVUYwn5KsklfpTdueTQAEUD";
+    public static final String BITBAR_EU_URL = "https://eu-desktop-hub.bitbar.com/wd/hub";
+    public static final String BITBAR_US_URL = "https://us-west-desktop-hub.bitbar.com/wd/hub";
+
+    // LambaTest
+    public static final String LAMBDA_USERNAME = "lengoduchieu";
+    public static final String LAMBDA_AUTOMATE_KEY = "LT_Ckf5aFrFrI5uvTfcoNdyYnGiYu82RBO8kCCnd5eFxYGiLdp";
+    public static final String LAMBDA_URL = "https://hub.lambdatest.com/wd/hub";
+
+
+
 }
