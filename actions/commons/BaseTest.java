@@ -1,8 +1,10 @@
 package commons;
 import browserFactory.*;
+import environmentFactory.EnvironmentList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import org.apache.poi.hssf.record.chart.DatRecord;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.Platform;
@@ -78,7 +80,6 @@ public class BaseTest {
     // LOCAL
     protected WebDriver getBrowserDriver(String url, String browserName) {
         BrowserType browserType = BrowserType.valueOf(browserName.toUpperCase());
-
         switch (browserType){
             case FIREFOX:
                 driver = new FirefoxBrowserManager().getDriver();
@@ -340,6 +341,21 @@ public class BaseTest {
         driver.manage().window().maximize();
         driver.get(url);
         return driver;
+    }
+
+    protected WebDriver getBrowserDriver(String environmentName, String url, String osName, String osVersion, String browserName, String broserVersion, String ipAddress, String portNumber){
+
+        EnvironmentList environmentList = EnvironmentList.valueOf(environmentName.toUpperCase());
+
+        switch (environmentList){
+            case LOCAL:
+                driver = new FirefoxBrowserManager().getDriver();
+            break;
+            case GRID:
+                driver = new ChromeBrowserManager().getDriver();
+                break;
+        }
+        return null;
     }
 
     private String getUrlByEnvironment(String environmentName){
