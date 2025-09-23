@@ -19,7 +19,7 @@ public class GridEnvironmentManager implements EnvironmentFactory{
     private WebDriver driver;
     private String browserName, osName, ipAddress, portNumber;
 
-    public GridEnvironmentManager(WebDriver driver, String browserName, String osName, String ipAddress, String portNumber) {
+    public GridEnvironmentManager(String browserName, String osName, String ipAddress, String portNumber) {
         this.driver = driver;
         this.browserName = browserName;
         this.osName = osName;

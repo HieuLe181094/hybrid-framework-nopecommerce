@@ -14,7 +14,7 @@ public class BrowserStackEnvironmentManager implements EnvironmentFactory{
     private WebDriver driver;
     private String osName, osVersion, browserName, browserVersion;
 
-    public BrowserStackEnvironmentManager(WebDriver driver, String osName, String osVersion, String browserName, String browserVersion) {
+    public BrowserStackEnvironmentManager(String osName, String osVersion, String browserName, String browserVersion) {
         this.driver = driver;
         this.osName = osName;
         this.osVersion = osVersion;

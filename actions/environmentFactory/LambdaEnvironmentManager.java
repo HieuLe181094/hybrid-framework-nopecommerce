@@ -20,7 +20,7 @@ public class LambdaEnvironmentManager implements EnvironmentFactory{
     private WebDriver driver;
     private  String osName, browserName, browserVersion;
 
-    public LambdaEnvironmentManager(WebDriver driver, String osName, String browserName, String browserVersion) {
+    public LambdaEnvironmentManager(String osName, String browserName, String browserVersion) {
         this.driver = driver;
         this.osName = osName;
         this.browserName = browserName;

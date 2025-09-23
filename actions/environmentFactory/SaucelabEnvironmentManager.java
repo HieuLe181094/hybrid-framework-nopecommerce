@@ -18,7 +18,7 @@ public class SaucelabEnvironmentManager implements EnvironmentFactory{
     private WebDriver driver;
     private String  platformName, browserName,browserVersion;
 
-    public SaucelabEnvironmentManager(WebDriver driver, String platformName, String browserName, String browserVersion) {
+    public SaucelabEnvironmentManager(String platformName, String browserName, String browserVersion) {
         this.driver = driver;
         this.platformName = platformName;
         this.browserName = browserName;

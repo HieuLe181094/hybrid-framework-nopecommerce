@@ -10,7 +10,7 @@ public class LocalEnvironmentManager implements EnvironmentFactory{
     private WebDriver driver;
     private String browserName;
 
-    public LocalEnvironmentManager(WebDriver driver, String browserName) {
+    public LocalEnvironmentManager(String browserName) {
         this.driver = driver;
         this.browserName = browserName;
     }

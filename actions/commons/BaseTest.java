@@ -1,10 +1,9 @@
 package commons;
 import browserFactory.*;
-import environmentFactory.EnvironmentList;
+import environmentFactory.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import org.apache.poi.hssf.record.chart.DatRecord;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.Platform;
@@ -14,11 +13,8 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.*;
-import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
 import org.testng.Assert;
 import org.testng.Reporter;
@@ -28,7 +24,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.Calendar;
@@ -57,7 +52,7 @@ public class BaseTest {
     }
 
     // LOCAL
-    protected WebDriver getBrowserDriver(String browserName){
+    protected WebDriver getBrowserDriver(String environmentName, String appUrl, String osName, String osVersion, String browserName, String browserVersion){
         BrowserType browserType = BrowserType.valueOf(browserName.toUpperCase());
         switch (browserType){
             case FIREFOX:
@@ -343,19 +338,36 @@ public class BaseTest {
         return driver;
     }
 
-    protected WebDriver getBrowserDriver(String environmentName, String url, String osName, String osVersion, String browserName, String broserVersion, String ipAddress, String portNumber){
+    // All
+    protected WebDriver getBrowserDriver(String environmentName, String url, String osName, String osVersion, String browserName, String broserVersion, String ipAddress, String portNumber, String platformName, String platformVersion){
 
         EnvironmentList environmentList = EnvironmentList.valueOf(environmentName.toUpperCase());
 
         switch (environmentList){
             case LOCAL:
-                driver = new FirefoxBrowserManager().getDriver();
+                driver = new LocalEnvironmentManager(browserName).createDriver();
             break;
             case GRID:
-                driver = new ChromeBrowserManager().getDriver();
+                driver = new GridEnvironmentManager(browserName, osName, ipAddress, portNumber).createDriver();
                 break;
+            case BROWSERSTACK:
+                driver = new BrowserStackEnvironmentManager(osName, osVersion, browserName, broserVersion).createDriver();
+                break;
+            case SAUCELAB:
+                driver = new SaucelabEnvironmentManager(platformName, browserName, broserVersion).createDriver();
+                break;
+            case BITBAR:
+                driver = new BitbarEnvironmentManager(platformName, platformVersion, browserName, broserVersion).createDriver();
+            case LAMBDA:
+                driver = new LambdaEnvironmentManager(osName, browserName, broserVersion).createDriver();
+                break;
+            default:
+                throw new RuntimeException("Environment name is not valid.");
         }
-        return null;
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(GlobalConstants.LONG_TIMEOUT));
+        driver.manage().window().maximize();
+        driver.get(url);
+        return driver;
     }
 
     private String getUrlByEnvironment(String environmentName){

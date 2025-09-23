@@ -14,8 +14,7 @@ public class BitbarEnvironmentManager implements EnvironmentFactory{
     private WebDriver driver;
     private String platformName, platformVersion, browserName,  browserVersion;
 
-    public BitbarEnvironmentManager(WebDriver driver, String platformName, String platformVersion, String browserName, String browserVersion) {
-        this.driver = driver;
+    public BitbarEnvironmentManager(String platformName, String platformVersion, String browserName, String browserVersion) {
         this.platformName = platformName;
         this.platformVersion = platformVersion;
         this.browserName = browserName;
