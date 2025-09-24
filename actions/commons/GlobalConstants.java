@@ -11,7 +11,7 @@ public class GlobalConstants {
     public static final long LONG_TIMEOUT = 30;
 
     // App Server Url
-    public static final String DEV_URL = "http://localhost/";
+    public static final String DEV_URL = "https://demo.nopcommerce.com/";
     public static final String TEST_URL = "http://test.localhost/";
     public static final String LIVE_URL = "http://live.localhost/";
 
