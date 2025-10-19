@@ -52,7 +52,7 @@ public class BaseTest {
     }
 
     // LOCAL
-    protected WebDriver getBrowserDriver(String environmentName, String appUrl, String osName, String osVersion, String browserName, String browserVersion){
+    protected WebDriver getBrowserDriver(String environmentName, String appUrl, String osName, String osVersion, String name, String browserName){
         BrowserType browserType = BrowserType.valueOf(browserName.toUpperCase());
         switch (browserType){
             case FIREFOX:
@@ -67,7 +67,28 @@ public class BaseTest {
             default:
                 throw new RuntimeException("Browser name is not valid");
         }
-        driver.get(GlobalConstants.DEV_URL);
+        driver.get(GlobalConstants.LOCAL_DEV_URL);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(GlobalConstants.LONG_TIMEOUT));
+        return driver;
+    }
+
+    // LOCAL PHỤ
+    protected WebDriver getBrowserDriver(String browserName){
+        BrowserType browserType = BrowserType.valueOf(browserName.toUpperCase());
+        switch (browserType){
+            case FIREFOX:
+                driver = new FirefoxDriver();
+                break;
+            case CHROME:
+                driver = new ChromeDriver();
+                break;
+            case EDGE:
+                driver = new EdgeDriver();
+                break;
+            default:
+                throw new RuntimeException("Browser name is not valid");
+        }
+        driver.get(GlobalConstants.LOCAL_DEV_URL);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(GlobalConstants.LONG_TIMEOUT));
         return driver;
     }
@@ -107,7 +128,7 @@ public class BaseTest {
 
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(GlobalConstants.LONG_TIMEOUT));
         driver.manage().window().maximize();
-        driver.get(url);
+        driver.get(GlobalConstants.LOCAL_DEV_URL);
         return driver;
     }
 
@@ -147,7 +168,7 @@ public class BaseTest {
         }
 
         try {
-            driver = new RemoteWebDriver(new URL(String.format("http://192.168.0.163:4444", ipAddress, portNumber)), capability);
+            driver = new RemoteWebDriver(new URL(String.format("http://%s:%s/", ipAddress, portNumber)), capability);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }

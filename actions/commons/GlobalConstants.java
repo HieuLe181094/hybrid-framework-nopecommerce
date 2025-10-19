@@ -12,6 +12,7 @@ public class GlobalConstants {
 
     // App Server Url
     public static final String DEV_URL = "https://demo.nopcommerce.com/";
+    public static final String LOCAL_DEV_URL = "http://localhost:8086/";
     public static final String TEST_URL = "http://test.localhost/";
     public static final String LIVE_URL = "http://live.localhost/";
 
@@ -21,9 +22,9 @@ public class GlobalConstants {
     public static final String JAVA_VERSION = System.getProperty("java.version");
     public static final String SEPARATOR = System.getProperty("file.separator");
 
-    // Admin User/ Pass
-    public static final String ADMIN_USERNAME = "hiuhiu@gmail.com";
-    public static final String ADMIN_PASSWORD = "hiuhiu@gmail.com";
+    // Admin User/ Pass - NOPCOMMERCE
+    public static final String NOP_ADMIN_USERNAME = "hieule1810@gmail.com";
+    public static final String NOP_ADMIN_PASSWORD = "Automation111!!!";
 
     // Upload/ Download
     public static final String UPLOAD_PATH = PROJECT_PATH + SEPARATOR + "uploadFiles" + SEPARATOR;

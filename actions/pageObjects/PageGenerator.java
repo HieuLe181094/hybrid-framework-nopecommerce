@@ -2,9 +2,7 @@ package pageObjects;
 
 import commons.BasePage;
 import org.openqa.selenium.WebDriver;
-import pageObjects.nopCommerce.UserHomePageObject;
-import pageObjects.nopCommerce.UserLoginPageObject;
-import pageObjects.nopCommerce.UserRegisterPageObject;
+import pageObjects.nopCommerce.*;
 import pageObjects.nopCommerce.sideBar.AddressPageObject;
 import pageObjects.nopCommerce.sideBar.UserCustomerInforPageObject;
 
@@ -43,5 +41,17 @@ public class PageGenerator {
 
     public static AddressPageObject getAddressPage(WebDriver driver){
         return new AddressPageObject(driver);
+    }
+
+    public  static AdminDashboardPageObject getAdminDashboardPage(WebDriver driver){
+        return new AdminDashboardPageObject(driver);
+    }
+
+    public  static AdminLoginPageObject getAdminLoginPage(WebDriver driver){
+        return new AdminLoginPageObject(driver);
+    }
+
+    public  static AdminCustomerPageObject getAdminCustomerPage(WebDriver driver){
+        return new AdminCustomerPageObject(driver);
     }
 }

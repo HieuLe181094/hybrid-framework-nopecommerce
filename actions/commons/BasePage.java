@@ -63,7 +63,31 @@ public class BasePage {
 
     public void openPageUrl(WebDriver driver, String pageUrl){
         driver.get(pageUrl);
+        waitForJQueryLoad(driver);
+        waitForPageLoaded(driver);
     }
+    // Wait cho JQuery (Ajax) load xong
+    public void waitForJQueryLoad(WebDriver driver) {
+        new WebDriverWait(driver, Duration.ofSeconds(30)).until(webDriver -> {
+            JavascriptExecutor jsExecutor = (JavascriptExecutor) webDriver;
+            try {
+                return (Boolean) jsExecutor.executeScript("return (window.jQuery != null) && (jQuery.active === 0);");
+            } catch (Exception e) {
+                // Nếu trang không có jQuery -> coi như load xong
+                return true;
+            }
+        });
+    }
+
+    // Wait cho Document load hoàn tất
+    public void waitForPageLoaded(WebDriver driver) {
+        new WebDriverWait(driver, Duration.ofSeconds(30)).until(webDriver -> {
+            JavascriptExecutor jsExecutor = (JavascriptExecutor) webDriver;
+            String state = (String) jsExecutor.executeScript("return document.readyState");
+            return state.equals("complete");
+        });
+    }
+
 
     public String getPageTitle(WebDriver driver){
         return driver.getTitle();

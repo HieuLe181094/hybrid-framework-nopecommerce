@@ -1,6 +1,7 @@
 package pageObjects.nopCommerce;
 
 import commons.BasePage;
+import commons.GlobalConstants;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import pageObjects.PageGenerator;
@@ -15,8 +16,7 @@ public class AdminLoginPageObject extends BasePage {
 
     @Step("Enter to Email Textbox with value: {0}")
     public void enterToEmailTextbox(String emailAddress) {
-        waitForElementVisible(driver, AdminLoginPageUI.EMAIL_TEXTBOX);
-        sendkeyToElement(driver, AdminLoginPageUI.EMAIL_TEXTBOX, emailAddress);
+         sendkeyToElement(driver, AdminLoginPageUI.EMAIL_TEXTBOX, emailAddress);
     }
 
     @Step("Enter to Password Textbox with value: {0}")

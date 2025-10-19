@@ -53,8 +53,8 @@ public class Level_10_By_Locator extends BaseTest {
         // User site => Admin site
         adminLoginPage = userHomePage.openAdminSite(driver, adminUrl);
 
-        adminLoginPage.enterToEmailTextbox(GlobalConstants.ADMIN_USERNAME);
-        adminLoginPage.enterToPasswordTextbox(GlobalConstants.ADMIN_PASSWORD);
+        adminLoginPage.enterToEmailTextbox(GlobalConstants.NOP_ADMIN_USERNAME);
+        adminLoginPage.enterToPasswordTextbox(GlobalConstants.NOP_ADMIN_PASSWORD);
         adminDashboardPage = adminLoginPage.clickLoginButton();
         Assert.assertTrue(adminDashboardPage.isPageLoadedSuccess(driver));
 

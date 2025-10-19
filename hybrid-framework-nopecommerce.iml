@@ -25,5 +25,6 @@
     <orderEntry type="library" name="jackson" level="project" />
     <orderEntry type="library" name="POI" level="project" />
     <orderEntry type="library" name="Owners" level="project" />
+    <orderEntry type="library" name="JDBC" level="project" />
   </component>
 </module>
