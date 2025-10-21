@@ -23,8 +23,14 @@ public class PageGenerator {
 
     // Viết các đoạn khởi tạo Page Object class thành các hàm (tái sử dụng) + tính chất đóng gói
     // Gọi qua các Re-Usable Method trong Page Generator này
+
+    private static UserHomePageObject userHomePage;
+
     public static UserHomePageObject getHomePage(WebDriver driver){
-        return new UserHomePageObject(driver);
+        if (userHomePage == null){
+            userHomePage = new UserHomePageObject(driver);
+        }
+        return userHomePage;
     }
 
     public static UserLoginPageObject getLoginPage(WebDriver driver){

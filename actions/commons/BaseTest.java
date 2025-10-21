@@ -32,11 +32,15 @@ import java.util.Random;
 
 
 public class BaseTest {
+    // Non-Static
+    protected WebDriver driver;
+
+    private static ThreadLocal<WebDriver> threadDriver = new ThreadLocal<WebDriver>();
+
     public WebDriver getDriver() {
-        return driver;
+        return threadDriver.get();
     }
 
-    WebDriver driver;
     protected final Logger log;
     String projectFolder = System.getProperty("user.dir");
     public Platform platform;
@@ -72,6 +76,33 @@ public class BaseTest {
         return driver;
     }
 
+    // LOCAL PHỤ - ThreadLocal
+    protected WebDriver getBrowserThreadDriver(String browserName){
+        BrowserType browserType = BrowserType.valueOf(browserName.toUpperCase());
+        switch (browserType){
+            case FIREFOX:
+                threadDriver.set(new FirefoxDriver());
+                break;
+            case CHROME:
+                threadDriver.set(new ChromeDriver());
+                break;
+            case EDGE:
+                String edgePath = "/usr/local/bin/msedgedriver";
+                File edgeFile = new File(edgePath);
+                if (!edgeFile.exists()) {
+                    throw new RuntimeException("EdgeDriver not found at: " + edgePath);
+                }
+                System.setProperty("webdriver.edge.driver", edgePath);
+                threadDriver.set(new EdgeDriver());
+                break;
+            default:
+                throw new RuntimeException("Browser name is not valid");
+        }
+        threadDriver.get().get(GlobalConstants.LOCAL_DEV_URL);
+        threadDriver.get().manage().timeouts().implicitlyWait(Duration.ofSeconds(GlobalConstants.LONG_TIMEOUT));
+        return threadDriver.get();
+    }
+
     // LOCAL PHỤ
     protected WebDriver getBrowserDriver(String browserName){
         BrowserType browserType = BrowserType.valueOf(browserName.toUpperCase());
@@ -83,6 +114,12 @@ public class BaseTest {
                 driver = new ChromeDriver();
                 break;
             case EDGE:
+                String edgePath = "/usr/local/bin/msedgedriver";
+                File edgeFile = new File(edgePath);
+                if (!edgeFile.exists()) {
+                    throw new RuntimeException("EdgeDriver not found at: " + edgePath);
+                }
+                System.setProperty("webdriver.edge.driver", edgePath);
                 driver = new EdgeDriver();
                 break;
             default:
@@ -412,14 +449,19 @@ public class BaseTest {
     protected void closeBrowserDriver() {
         String cmd = null;
         try {
+            WebDriver driver = threadDriver.get();
+            if (driver == null) {
+                log.warn("⚠️ No WebDriver instance found for current thread.");
+                return;
+            }
+
             String osName = System.getProperty("os.name").toLowerCase();
             log.info("OS name = " + osName);
 
             String driverInstanceName = driver.toString().toLowerCase();
             log.info("Driver instance name = " + driverInstanceName);
 
-            String browserDriverName = null;
-
+            String browserDriverName;
             if (driverInstanceName.contains("chrome")) {
                 browserDriverName = "chromedriver";
             } else if (driverInstanceName.contains("firefox")) {
@@ -438,23 +480,25 @@ public class BaseTest {
                 cmd = "pkill " + browserDriverName;
             }
 
-            if (driver != null) {
-                driver.manage().deleteAllCookies();
-                driver.quit();
-            }
+            driver.manage().deleteAllCookies();
+            driver.quit();
         } catch (Exception e) {
-            log.info(e.getMessage());
+            log.error("❌ Error in closeBrowserDriver: " + e.getMessage());
         } finally {
             try {
-                Process process = Runtime.getRuntime().exec(cmd);
-                process.waitFor();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                if (cmd != null && !cmd.isEmpty()) {
+                    Process process = Runtime.getRuntime().exec(cmd);
+                    process.waitFor();
+                    log.info("✅ Closed browser driver: " + cmd);
+                } else {
+                    log.warn("⚠️ Skip closing browser — command is null or empty.");
+                }
+            } catch (IOException | InterruptedException e) {
+                log.error("❌ Error executing browser close command: " + e.getMessage());
             }
         }
     }
+
 
     protected void assertTrue(boolean condition){
         Assert.assertTrue(verifyTrue(condition));
